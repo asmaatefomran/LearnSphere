@@ -38,4 +38,9 @@ public class UserService {
         return userRepo.findUserViaEmail(email)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword())); // Compare encoded password
     }
+
+    public Optional<User> findByEmail(String email) {
+    return userRepo.findUserViaEmail(email); // Delegate to UserRepo
+}
+
 }
