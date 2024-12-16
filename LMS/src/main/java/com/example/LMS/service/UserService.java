@@ -11,7 +11,7 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserRepo userRepo;
+    public UserRepo userRepo;
 
     // Register a new user
     public User register(User user) {
