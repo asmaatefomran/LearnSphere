@@ -4,8 +4,8 @@ import lombok.Setter;
 import java.util.UUID;
 
 
-@Getter
 @Setter
+@Getter
 public class User {
     private Long id; // Lombok will generate setId() and getId()
     private String name;
@@ -20,6 +20,7 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
 
     // Default constructor for frameworks like JPA or for testing
     public User() {}

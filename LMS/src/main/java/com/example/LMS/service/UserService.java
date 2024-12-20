@@ -1,19 +1,21 @@
 package com.example.LMS.service;
 
+import com.example.LMS.model.Course;
 import com.example.LMS.model.User;
 import com.example.LMS.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserService {
 
-    private final UserRepo userRepo;
-    private final PasswordEncoder passwordEncoder;
-
+    private UserRepo userRepo;
+    private PasswordEncoder passwordEncoder;
+    //
     // Constructor injection
     @Autowired
     public UserService(UserRepo userRepo, PasswordEncoder passwordEncoder) {
@@ -40,7 +42,11 @@ public class UserService {
     }
 
     public Optional<User> findByEmail(String email) {
-    return userRepo.findUserViaEmail(email); // Delegate to UserRepo
-}
+        return userRepo.findUserViaEmail(email); // Delegate to UserRepo
+    }
+
+    public List<User> getAllUsers() {
+        return userRepo.findAllUsers();
+    }
 
 }

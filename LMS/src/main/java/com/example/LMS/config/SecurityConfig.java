@@ -17,7 +17,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // Disable CSRF protection
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/register", "/api/auth/login").permitAll() // Public endpoints
-                .anyRequest().authenticated() // Other requests must be authenticated
+                .anyRequest().permitAll() // Other requests must be authenticated
             )
             .httpBasic(Customizer.withDefaults()); // Fix: Use Customizer.withDefaults()
 

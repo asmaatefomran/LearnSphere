@@ -1,7 +1,10 @@
 package com.example.LMS.controller;
 
+
 import com.example.LMS.model.User;
 import com.example.LMS.service.UserService;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+
 @RequestMapping("/api/auth")
 public class UserController {
 
@@ -38,10 +42,14 @@ public class UserController {
     @GetMapping("/account")
     public ResponseEntity<User> getAccount(@RequestParam String email) {
         // Call the service method to find user by email
-        Optional<User> user = userService.findByEmail(email); 
+        Optional<User> user = userService.findByEmail(email);
 
         // Return the user if found, otherwise return a 404 NOT FOUND
         return user.map(ResponseEntity::ok)
-                   .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+    @GetMapping
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 }
