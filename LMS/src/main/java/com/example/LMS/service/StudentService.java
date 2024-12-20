@@ -65,6 +65,9 @@ public class StudentService {
         return studentRepo.UnEnrollFromCourse(courseId,studentId);
     }
 //=============================================================
-
+ public Optional<User> updateStudent(Student stu){
+        User i = studentRepo.updateStudent(stu);
+        return Optional.of(i);
+ }
 
 }

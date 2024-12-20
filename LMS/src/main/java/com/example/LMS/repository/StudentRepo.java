@@ -75,4 +75,21 @@ public class StudentRepo {
     }
 //=============================================================
 
+    public User updateStudent(Student u) {
+        User userToUpdate = userRepo.getUserById(u.getId());
+        if (u.getGPA() >= 0.0 && u.getGPA() <= 4.0) {((Student) userToUpdate).setGPA(u.getGPA());}
+
+        if (u.getName() != null) {userToUpdate.setName(u.getName());}
+
+        if (u.getPassword() != null) {userToUpdate.setPassword(u.getPassword());}
+
+        if (u.getMajor() != null) {((Student) userToUpdate).setMajor(u.getMajor());}
+
+        if (u.getGraduationYear() > 0) {((Student) userToUpdate).setGraduationYear(u.getGraduationYear());}
+
+        if (u.getCourses() != null && !u.getCourses().isEmpty()) {((Student) userToUpdate).setCourses(u.getCourses());}
+
+        return userToUpdate;
+    }
+
 }

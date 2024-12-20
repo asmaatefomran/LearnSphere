@@ -1,6 +1,5 @@
 package com.example.LMS.controller;
 
-import com.example.LMS.model.Course;
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
 import com.example.LMS.service.StudentService;
@@ -77,4 +76,13 @@ StudentController {
         return ResponseEntity.ok(students);
     }
 
+    @PostMapping("/update")
+    public ResponseEntity<Optional<User>> updateStudent(@RequestBody Student stu){
+    Optional<User> updatedUser = studentService.updateStudent(stu);
+        if (updatedUser != null) {
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

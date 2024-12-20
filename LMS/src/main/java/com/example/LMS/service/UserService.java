@@ -24,7 +24,7 @@ public class UserService {
     }
 
     // Register a new user
-    public User register(User user) {
+    public User register(User  user) {
         Optional<User> existingUser = userRepo.findUserViaEmail(user.getEmail());
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("Email already exists!");
@@ -47,6 +47,16 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepo.findAllUsers();
+    }
+
+    public User update(User u){
+        Optional<User> updatedUser =  userRepo.findUserViaEmail(u.getEmail());
+        if(!updatedUser.isPresent()){
+            throw new IllegalArgumentException("There is no such user with given email");
+
+        }
+        return userRepo.updateUser(u);
+
     }
 
 }
