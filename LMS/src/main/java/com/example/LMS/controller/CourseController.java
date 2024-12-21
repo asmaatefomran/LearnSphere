@@ -3,17 +3,11 @@ package com.example.LMS.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.LMS.model.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.LMS.model.Course;
 import com.example.LMS.service.CourseService;
@@ -67,4 +61,14 @@ public class CourseController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @GetMapping("/addlesson")
+    public ResponseEntity<Optional<Lesson>> addLesson(@RequestParam Long CourseID, @RequestBody Lesson lesson){
+        lesson.setCourseId(CourseID);
+        Optional<Lesson> lesson1 = courseService.addLesson(lesson);
+        return ResponseEntity.status(HttpStatus.CREATED).body(lesson1);
+
+
+
+    }
+
 }

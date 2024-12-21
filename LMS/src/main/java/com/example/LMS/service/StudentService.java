@@ -1,13 +1,12 @@
 package com.example.LMS.service;
 
 import com.example.LMS.model.Course;
+import com.example.LMS.model.Lesson;
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
-import com.example.LMS.model.lesson;
 import com.example.LMS.repository.StudentRepo;
 import com.example.LMS.repository.UserRepo;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,11 +58,10 @@ public class StudentService {
     public String UnEnrollFromCourse(Long courseId, long studentId) {
         return studentRepo.UnEnrollFromCourse(courseId,studentId);
     }
-    public Optional<lesson> FindLessonByName(String name, Long courseId) {
-        // Fetch the course by its ID using the CourseService
+    public Optional<Lesson> FindLessonByName(String name, Long courseId) {
         Optional<Course> courseOptional = courseService.getCourseById(courseId);
 
-        // If the course exists, search for the lesson by name
+        // If the course exists, search for the Lesson by name
         if (courseOptional.isPresent()) {
             Course course = courseOptional.get();
 
@@ -74,7 +72,7 @@ public class StudentService {
                     .findFirst();
         }
 
-        // Return an empty Optional if the course doesn't exist or the lesson isn't found
+        // Return an empty Optional if the course doesn't exist or the Lesson isn't found
         return Optional.empty();
     }
 
@@ -84,14 +82,12 @@ public class StudentService {
         return Optional.of(i);
  }
 
-    public Optional<lesson> attendlesson(long studentId, String lessonName, long courseId) {
-        // Fetch the lesson by name and course ID
-        Optional<lesson> lessonOptional = FindLessonByName(lessonName, courseId);
+     public Optional<Lesson> attendlesson(long studentId, String lessonName, long courseId) {
+        Optional<Lesson> lesson1 = FindLessonByName(lessonName, courseId);
 
-        if (lessonOptional.isPresent()) {
-            lesson lesson = lessonOptional.get();
+        if (lesson1.isPresent()) {
+            Lesson lesson = lesson1.get();
 
-            // Fetch the student by ID
             Optional<User> studentOptional = Optional.ofNullable(userRepo.getUserById(studentId));
             if (studentOptional.isPresent()) {
                 Student student = (Student) studentOptional.get();
@@ -102,7 +98,7 @@ public class StudentService {
                     lesson.getAttendees().add(student);
                     return Optional.of(lesson);
                 } else {
-                    throw new IllegalStateException("Student is already attending this lesson.");
+                    throw new IllegalStateException("Student is already attending this Lesson.");
                 }
             } else {
                 throw new IllegalArgumentException("Student with ID " + studentId + " not found.");

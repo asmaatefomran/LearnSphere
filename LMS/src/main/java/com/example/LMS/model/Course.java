@@ -14,13 +14,15 @@ public class Course {
     private String instructorId;
     private List<String> enrolledStudentIds;
     List<Question> questionBank;
-    public List<lesson> Lessons;
+    public List<Lesson> Lessons;
     public Course(String title, String description, String instructorId) {
         this.id = CourseIdGenerator.generateId();
         this.title = title;
         this.description = description;
         this.instructorId = instructorId;
         this.enrolledStudentIds = new ArrayList<>();
+        this.Lessons = new ArrayList<>();
+        this.questionBank = new ArrayList<>();
     }
 
 }

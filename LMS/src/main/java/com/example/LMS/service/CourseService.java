@@ -3,6 +3,7 @@ package com.example.LMS.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.LMS.model.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,10 @@ public class CourseService {
         }
 
         return false;
+    }
+
+    public Optional<Lesson> addLesson(Lesson lesson){
+        return Optional.ofNullable(courseRepository.addLesson(lesson.getCourseId(), lesson));
     }
 
 }
