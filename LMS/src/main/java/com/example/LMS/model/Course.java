@@ -13,7 +13,8 @@ public class Course {
     private String description;
     private String instructorId;
     private List<String> enrolledStudentIds;
-
+    List<Question> questionBank;
+    public List<lesson> Lessons;
     public Course(String title, String description, String instructorId) {
         this.id = CourseIdGenerator.generateId();
         this.title = title;

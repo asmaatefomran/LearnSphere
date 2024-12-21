@@ -2,6 +2,8 @@ package com.example.LMS.model;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 import java.util.UUID;
 
 
@@ -13,7 +15,7 @@ public class User {
     private String email;
     private String password;
     private String role;
-
+    List<Notififcation> notififcations;
 
     public User(String name, String email, String password, String role) {
         this.id = UserIdGenerotor.generateId();

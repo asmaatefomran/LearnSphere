@@ -2,6 +2,7 @@ package com.example.LMS.controller;
 
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
+import com.example.LMS.model.lesson;
 import com.example.LMS.service.StudentService;
 import com.example.LMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,11 @@ StudentController {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
+    // not tested yet
+    @GetMapping("/attendlesson?id={id}&&name={name}&&couid={couid}")
+    public ResponseEntity<Optional<lesson>> attendLesson(@PathVariable long id, @PathVariable String name, @PathVariable Long Couid){
+        Optional<lesson> l = studentService.attendlesson(id,name,Couid);
+        return ResponseEntity.ok().body(l);
     }
 }
