@@ -15,7 +15,7 @@ public class User {
     private String email;
     private String password;
     private String role;
-    List<Notififcation> notififcations;
+    List<Notification> notififcations;
 
     public User(String name, String email, String password, String role) {
         this.id = UserIdGenerotor.generateId();

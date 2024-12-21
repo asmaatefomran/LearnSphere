@@ -1,8 +1,10 @@
 package com.example.LMS.controller;
 
+import com.example.LMS.model.Notification;
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
 import com.example.LMS.model.lesson;
+import com.example.LMS.service.NotificationService;
 import com.example.LMS.service.StudentService;
 import com.example.LMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +23,14 @@ StudentController {
     private StudentService studentService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NotificationService notificationService;
 
     @PostMapping("/register")
     public ResponseEntity<User> registerStudent(@RequestBody Student student) {
         User registeredUser = userService.register(student);
         if (registeredUser != null) {
+            notificationService.AddNotification("You have registered Successfully",registeredUser.getId());
             return ResponseEntity.ok(registeredUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -45,10 +50,11 @@ StudentController {
     }
 
     @PostMapping("/enroll")
-    public ResponseEntity<String> enroll(@RequestParam String StudId, @RequestParam long Couid) {
+    public ResponseEntity<String> enroll(@RequestParam Long StudId, @RequestParam long Couid) {
 
         // Call the enrollInCourse method from the StudentService
         String result = studentService.EnrollInCourse(StudId, Couid);
+        notificationService.AddNotification("You have enrolled the {Couid} Successfully",StudId);
 
         // Return the response
         return ResponseEntity.ok(result);
@@ -61,7 +67,8 @@ StudentController {
         long courseId = Couid;
 
         // Call the enrollInCourse method from the StudentService
-        String result = studentService.UnEnrollFromCourse(studentId,courseId);
+        String result = studentService.UnEnrollFromCourse(Long.valueOf(studentId),courseId);
+        notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId);
 
         // Return the response
         return ResponseEntity.ok(result);
@@ -92,4 +99,12 @@ StudentController {
         Optional<lesson> l = studentService.attendlesson(id,name,Couid);
         return ResponseEntity.ok().body(l);
     }
+
+    @GetMapping ("notifications")
+    public ResponseEntity<Optional<List<Notification>>> viewNotifications(@RequestParam Long RecID){
+   ;
+        Optional<List<Notification>> notificationList = notificationService.ShowNotifactions(RecID);
+        return ResponseEntity.ok().body(notificationList);
+    }
+
 }

@@ -51,12 +51,12 @@ public class StudentService {
         return studentRepo.findAllStudents();
     }
     //=============================================================
-    public String EnrollInCourse(String studentId,long courseId){
+    public String EnrollInCourse(Long studentId,long courseId){
         assert studentRepo != null;
-        return studentRepo.EnrollInCourse(studentId,courseId);
+        return studentRepo.EnrollInCourse(String.valueOf(studentId),courseId);
     }
     //=============================================================
-    public String UnEnrollFromCourse(String courseId, long studentId) {
+    public String UnEnrollFromCourse(Long courseId, long studentId) {
         return studentRepo.UnEnrollFromCourse(courseId,studentId);
     }
     public Optional<lesson> FindLessonByName(String name, Long courseId) {

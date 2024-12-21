@@ -52,7 +52,7 @@ public class StudentRepo {
         }
     }
     //=============================================================
-    public String UnEnrollFromCourse(String studentId,long courseId) {
+    public String UnEnrollFromCourse(Long studentId,long courseId) {
         Optional<Course> courseOptional = courseRepo.findById(courseId);
 
         if (courseOptional.isEmpty()) {
