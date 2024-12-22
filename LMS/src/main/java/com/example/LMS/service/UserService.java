@@ -73,6 +73,9 @@ public class UserService {
             if (user.getEmail()!= null) {
                 existingUser.setEmail(user.getEmail());
             }
+            if (user.getRole()!= null) {
+                existingUser.setRole(user.getRole());
+            }
             if(user.getNotififcations()!=null)
                existingUser.setNotififcations(user.getNotififcations());
 

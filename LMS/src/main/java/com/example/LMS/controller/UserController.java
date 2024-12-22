@@ -1,7 +1,6 @@
 package com.example.LMS.controller;
 
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,14 +22,14 @@ import com.example.LMS.service.UserService;
 @RestController
 
 @RequestMapping("/api/auth")
-public class UserController {
+public abstract  class UserController<T extends  User> {
 
     @Autowired
     private UserService userService;
 
     // Endpoint for registering a new user
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
+    public ResponseEntity<User> register(@RequestBody T user) {
         try {
             User registeredUser = userService.register(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
@@ -57,10 +56,7 @@ public class UserController {
         return user.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
-    }
+   
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         boolean isDeleted = userService.deleteUser(id);
@@ -70,7 +66,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateCourse(@PathVariable Long id,@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody T user) {
         boolean isUpdated = userService.UpdateUser(id, user);
 
         if (isUpdated) {
