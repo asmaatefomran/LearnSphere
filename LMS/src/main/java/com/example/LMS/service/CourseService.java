@@ -70,7 +70,6 @@ public class CourseService {
     public Optional<Lesson> addLesson(Lesson lesson){
         return Optional.ofNullable(courseRepository.addLesson(lesson.getCourseId(), lesson));
     }
-
     public void addAssigment(Long courseId,Assesment assesment){
 
         courseRepository.addAssigment(courseId, assesment);;
@@ -79,4 +78,10 @@ public class CourseService {
 
         return courseRepository.viewAssesments(courseId);
     }
+
+    public String view_course( long CourseID){
+        return courseRepository.view_course(CourseID);
+    }
+    
+
 }

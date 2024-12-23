@@ -1,18 +1,26 @@
 package com.example.LMS.service;
 
-import com.example.LMS.model.User;
-import com.example.LMS.repository.UserRepo;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Optional;
-
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import com.example.LMS.model.User;
+import com.example.LMS.repository.UserRepo;
 
 class UserServiceTest {
 
@@ -88,4 +96,60 @@ class UserServiceTest {
         assertFalse(loginUser.isPresent());
         verify(passwordEncoder, times(1)).matches("wrongpassword", "encodedPassword"); // Verify password check
     }
+    void testDeleteUserWhenFound() {
+  
+    User user = new User("Nada","Nada@gmail.com","Nada123","Student");
+    String email= user.getEmail();
+    Long Id =user.getId();
+   
+    boolean isDeleted = userService.deleteUser(Id);
+
+ 
+    assertTrue(isDeleted);
+    //must not found after delete
+    assertFalse(userService.findById(Id).isPresent());
+}
+
+@Test
+void testDeleteuserWhenNotFound() {
+    
+    Long Id = 999L; // user not found 
+    boolean isDeleted = userService.deleteUser(Id);
+    assertFalse(isDeleted);
+}
+
+@Test
+void testUpdateUserWhenFound() {
+    
+    User User = new User("Noura", "Noura@gmail.com", "Noura123", "admin");
+    User.setId(1L); 
+    
+    
+    when(userRepository.findById(1L)).thenReturn(Optional.of(User));
+
+    User updatedUser = new User("Noura", "Noura@gmail.com", "Noura123", "admin");
+
+
+    when(userRepository.saveUser(any(User.class))).thenReturn(updatedUser);
+
+    boolean isUpdated = userService.UpdateUser(1L, updatedUser);
+    assertTrue(isUpdated);
+    
+  
+    User retrievedUser = userService.findById(1L).orElse(null);
+    assertNotNull(retrievedUser);
+    assertEquals("Noura", retrievedUser.getName());
+    assertEquals("Noura@gmail.com", retrievedUser.getEmail());
+    assertEquals("admin", retrievedUser.getRole());
+}
+
+@Test
+void testUpdateCourseWhenNotFound() {
+   
+    Long Id = 999L; 
+
+    User user = new User("Nada","Nada@gmail.com","Nada123","Student");;
+    boolean isUpdated = userService.UpdateUser(Id, user);
+    assertFalse(isUpdated);
+}
 }

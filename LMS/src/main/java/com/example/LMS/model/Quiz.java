@@ -1,13 +1,18 @@
 package com.example.LMS.model;
 
+
 import java.util.HashMap;
 import java.util.List;
+import lombok.AllArgsConstructor;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
+
 public class Quiz {
     String type;// MCQ , true/flase , shortanswers
     Long Id;
@@ -28,5 +33,6 @@ public class Quiz {
     public Long setId() {
         return Id++;
     }
+
 
 }

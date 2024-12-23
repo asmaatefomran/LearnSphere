@@ -1,18 +1,26 @@
 package com.example.LMS.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.LMS.model.Lesson;
 import com.example.LMS.model.Notification;
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
+import com.example.LMS.service.CourseService;
 import com.example.LMS.service.NotificationService;
+import com.example.LMS.service.QuizService;
 import com.example.LMS.service.StudentService;
 import com.example.LMS.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/student")
@@ -25,6 +33,9 @@ StudentController {
     private UserService userService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private QuizService quizService;
+    private CourseService courseService;
 
     @PostMapping("/register")
     public ResponseEntity<User> registerStudent(@RequestBody Student student) {
@@ -62,24 +73,20 @@ StudentController {
 
     @PostMapping("/Unenroll")
     public ResponseEntity<String> Unenroll(@RequestParam Long StudId, @RequestParam Long Couid) {
-        // Convert Long IDs to String if required by the service method
         String studentId = StudId.toString();
         long courseId = Couid;
 
-        // Call the enrollInCourse method from the StudentService
         String result = studentService.UnEnrollFromCourse(Long.valueOf(studentId),courseId);
         notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId);
 
-        // Return the response
         return ResponseEntity.ok(result);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllStudents() {
-        // Filter users with the role "student"
-        List<User> students = userService.getAllUsers().stream()
+       List<User> students = userService.getAllUsers().stream()
                 .filter(user -> "student".equalsIgnoreCase(user.getRole()))
-                .toList(); // Collect only students
+                .toList();
 
         return ResponseEntity.ok(students);
     }
@@ -108,4 +115,17 @@ StudentController {
         return ResponseEntity.ok().body(notificationList);
     }
 
+    @PostMapping("/uploadassign")
+    public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
+                                                   @RequestParam String ans ){
+        String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
+        return ResponseEntity.ok(reasult);
+    }
+
+    @GetMapping("/view course")
+    public ResponseEntity<String> view_course(@RequestParam long CourseID){
+        String result=courseService.view_course(CourseID);
+        return ResponseEntity.ok(result);
+    }
+    
 }

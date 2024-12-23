@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Lesson;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +20,7 @@ public class CourseRepo {
     
     public Course save(Course course) {
         courses.put(course.getId(), course);
+        System.out.println("course saved");
         return course;
     }
 
@@ -53,6 +55,25 @@ public class CourseRepo {
     public List<Assesment> viewAssesments(Long courseId){
 
         return this.findById(courseId).get().getAssignments();
+    }
+
+    public Course addAssessment(Assesment a){
+
+        courses.get(a.getCourseID()).setAssesments(a);
+
+        return courses.get(a.getCourseID());
+
+    }
+    
+    public  String view_course( long CourseID) {
+        // Check if the course exists in the courses map
+        Course course = courses.get(CourseID);
+        if (course == null) {
+            return "Course not found.";
+        }
+        else{
+            return course.getDescription();
+        }
     }
 
 }

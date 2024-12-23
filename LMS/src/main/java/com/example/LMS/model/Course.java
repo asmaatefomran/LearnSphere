@@ -15,13 +15,18 @@ public class Course {
     private Long id;
     private String title;
     private String description;
-    private Long instructorId;
+
+    private String instructorId;
+    List<Assesment> assesments = new ArrayList<>();
+
     private List<String> enrolledStudentIds;
     private final List<Assesment> Assignments;
     List<Question> questionBank;
     public List<Lesson> Lessons;
 
+
     public Course(String title, String description, Long instructorId) {
+
         this.id = CourseIdGenerator.generateId();
         this.title = title;
         this.description = description;
@@ -46,5 +51,11 @@ public class Course {
         
         return Assignments.stream().filter(assesment -> id.equals(assesment.getId())).findFirst().get();
     }
+    public Course() {
+        this.enrolledStudentIds = new ArrayList<>();
+    }
 
+    public void setAssesments(Assesment a) {
+        this.assesments.add(a);
+    }
 }

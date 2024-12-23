@@ -46,7 +46,7 @@ public class UserService {
     }
 
     public Optional<User> findById(Long Id) {
-        return userRepo.findById(Id); // Delegate to UserRepo
+        return userRepo.findById(Id);
     }
 
     public List<User> getAllUsers() {
@@ -101,6 +101,13 @@ public class UserService {
         }
         return userRepo.updateUser(u);
 
+    }
+
+     // View user role
+     public String viewUserRole(Long userId) {
+        return userRepo.findById(userId)
+                .map(User::getRole)
+                .orElse("User not found");
     }
 
 }
