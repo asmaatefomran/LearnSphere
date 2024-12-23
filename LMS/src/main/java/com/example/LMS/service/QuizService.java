@@ -23,12 +23,9 @@ public class QuizService {
     private CourseRepo courseRepo;
 
     public Quiz createQuiz(Quiz q) {
-        Assesment existing = qr.findById(q.getId());
-        if (existing!=null) {
-            throw new IllegalArgumentException("Email already exists!");
-        }
-        courseRepo.addAssessment(q);
-       return qr.save(q);
+
+        return qr.save(q);
+
     }
     public String uploadAssessment(Long assessID,Long StudentID,String ans){
         Assesment assessment = qr.findById(assessID);
@@ -43,5 +40,14 @@ public class QuizService {
 
 
 
+    // public String GradeQuiz(Long id){
+    // if( qr.findById(id).isPresent())
+    // {
+    // Quiz q = qr.findById(id).get();
+
+    // }
+
+    // return new String("there is no quiz with that id: "+id);
+    // }
 
 }

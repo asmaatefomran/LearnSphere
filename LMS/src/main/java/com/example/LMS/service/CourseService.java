@@ -7,6 +7,7 @@ import com.example.LMS.model.Lesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Course;
 import com.example.LMS.repository.CourseRepo;
 
@@ -21,7 +22,7 @@ public class CourseService {
     @Autowired
     private CourseRepo courseRepository;
 
-    public Course createCourse(String title, String description, String instructorId) {
+    public Course createCourse(String title, String description, Long instructorId) {
         Course course = new Course(title, description, instructorId);
         return courseRepository.save(course);
     }
@@ -29,6 +30,7 @@ public class CourseService {
     public Optional<Course> getCourseById(Long id) {
         return courseRepository.findById(id);
     }
+
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
@@ -67,6 +69,14 @@ public class CourseService {
 
     public Optional<Lesson> addLesson(Lesson lesson){
         return Optional.ofNullable(courseRepository.addLesson(lesson.getCourseId(), lesson));
+    }
+    public void addAssigment(Long courseId,Assesment assesment){
+
+        courseRepository.addAssigment(courseId, assesment);;
+    }
+    public List<Assesment> viewAssesments(Long courseId){
+
+        return courseRepository.viewAssesments(courseId);
     }
 
     public String view_course( long CourseID){

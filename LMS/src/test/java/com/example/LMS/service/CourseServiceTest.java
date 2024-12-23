@@ -52,6 +52,7 @@ void testDeleteCourseWhenFound() {
     assertTrue(isDeleted);
     //must not found after delete
     assertFalse(courseService.getCourseById(courseId).isPresent());
+
 }
 
 @Test
