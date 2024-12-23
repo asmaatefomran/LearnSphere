@@ -5,9 +5,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+
 @Configuration
-public class CourseConfig {
-    @Bean(name = "CourseCommandLineRunner")
+public class courseConfig {
+    @Bean(name = "CourseCommandLineRunner"  )
     CommandLineRunner commandLineRunner(CourseService repository) {
         return args -> {
             repository.createCourse("CS","Course for first grade", Long.valueOf("6"));
