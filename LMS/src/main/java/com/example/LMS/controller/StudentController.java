@@ -115,12 +115,12 @@ StudentController {
         return ResponseEntity.ok().body(notificationList);
     }
 
-    @PostMapping("/uploadassign")
-    public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
-                                                   @RequestParam String ans ){
-        String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
-        return ResponseEntity.ok(reasult);
-    }
+    // @PostMapping("/uploadassign")
+    // public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
+    //                                                @RequestParam String ans ){
+    //     String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
+    //     return ResponseEntity.ok(reasult);
+    // }
 
     @GetMapping("/view course")
     public ResponseEntity<String> view_course(@RequestParam long CourseID){
