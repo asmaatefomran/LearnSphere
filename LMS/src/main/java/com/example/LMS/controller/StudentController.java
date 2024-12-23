@@ -5,6 +5,7 @@ import com.example.LMS.model.Notification;
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
 import com.example.LMS.service.NotificationService;
+import com.example.LMS.service.QuizService;
 import com.example.LMS.service.StudentService;
 import com.example.LMS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ StudentController {
     private UserService userService;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private QuizService quizService;
 
     @PostMapping("/register")
     public ResponseEntity<User> registerStudent(@RequestBody Student student) {
@@ -62,24 +65,20 @@ StudentController {
 
     @PostMapping("/Unenroll")
     public ResponseEntity<String> Unenroll(@RequestParam Long StudId, @RequestParam Long Couid) {
-        // Convert Long IDs to String if required by the service method
         String studentId = StudId.toString();
         long courseId = Couid;
 
-        // Call the enrollInCourse method from the StudentService
         String result = studentService.UnEnrollFromCourse(Long.valueOf(studentId),courseId);
         notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId);
 
-        // Return the response
         return ResponseEntity.ok(result);
     }
 
     @GetMapping
     public ResponseEntity<List<User>> getAllStudents() {
-        // Filter users with the role "student"
-        List<User> students = userService.getAllUsers().stream()
+       List<User> students = userService.getAllUsers().stream()
                 .filter(user -> "student".equalsIgnoreCase(user.getRole()))
-                .toList(); // Collect only students
+                .toList();
 
         return ResponseEntity.ok(students);
     }
@@ -106,6 +105,13 @@ StudentController {
    ;
         Optional<List<Notification>> notificationList = notificationService.ShowNotifactions(RecID);
         return ResponseEntity.ok().body(notificationList);
+    }
+
+    @PostMapping("/uploadassign")
+    public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
+                                                   @RequestParam String ans ){
+        String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
+        return ResponseEntity.ok(reasult);
     }
 
 }

@@ -1,7 +1,9 @@
 package com.example.LMS.service;
 
+import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Question;
 import com.example.LMS.model.Quiz;
+import com.example.LMS.repository.CourseRepo;
 import com.example.LMS.repository.QuizRepo;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,14 +19,29 @@ import java.util.Optional;
 public class QuizService {
     @Autowired
     private QuizRepo qr;
+    @Autowired
+    private CourseRepo courseRepo;
 
     public Quiz createQuiz(Quiz q) {
-        Optional<Quiz> existing = qr.findById(q.getId());
-        if (existing.isPresent()) {
+        Assesment existing = qr.findById(q.getId());
+        if (existing!=null) {
             throw new IllegalArgumentException("Email already exists!");
         }
+        courseRepo.addAssessment(q);
        return qr.save(q);
     }
+    public String uploadAssessment(Long assessID,Long StudentID,String ans){
+        Assesment assessment = qr.findById(assessID);
+        if(assessment==null){
+            throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
+
+        }
+        assessment.addSubmission(StudentID,ans);
+        return ("Submission uploaded for Student ID: " +StudentID);
+
+    }
+
+
 
 
 }

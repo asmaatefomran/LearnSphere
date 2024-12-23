@@ -12,6 +12,7 @@ public class Course {
     private String title;
     private String description;
     private String instructorId;
+    List<Assesment> assesments = new ArrayList<>();
     private List<String> enrolledStudentIds;
     List<Question> questionBank;
     public List<Lesson> Lessons;
@@ -25,4 +26,7 @@ public class Course {
         this.questionBank = new ArrayList<>();
     }
 
+    public void setAssesments(Assesment a) {
+        this.assesments.add(a);
+    }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Lesson;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +44,14 @@ public class CourseRepo {
         course.Lessons.add(lesson);
         lessons.put(lesson.getCourseId(), lessonList);
         return lesson;
+    }
+
+    public Course addAssessment(Assesment a){
+
+        courses.get(a.getCourseID()).setAssesments(a);
+
+        return courses.get(a.getCourseID());
+
     }
 
 }
