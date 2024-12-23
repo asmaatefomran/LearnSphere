@@ -45,8 +45,16 @@ public class UserService {
         return userRepo.findUserViaEmail(email); // Delegate to UserRepo
     }
 
+    public Optional<User> findById(Long Id) {
+        return userRepo.findById(Id); // Delegate to UserRepo
+    }
+
     public List<User> getAllUsers() {
         return userRepo.findAllUsers();
+    }
+
+    public User getUserbyId(Long id) {
+        return userRepo.getUserById(id);
     }
     public boolean deleteUser(Long id) {
         Optional<User> user = userRepo.findById(id);

@@ -19,12 +19,17 @@ public class QuizService {
     private QuizRepo qr;
 
     public Quiz createQuiz(Quiz q) {
-        Optional<Quiz> existing = qr.findById(q.getId());
-        if (existing.isPresent()) {
-            throw new IllegalArgumentException("Email already exists!");
-        }
-       return qr.save(q);
+        return qr.save(q);
     }
 
+    // public String GradeQuiz(Long id){
+    // if( qr.findById(id).isPresent())
+    // {
+    // Quiz q = qr.findById(id).get();
+
+    // }
+
+    // return new String("there is no quiz with that id: "+id);
+    // }
 
 }

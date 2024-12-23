@@ -31,7 +31,6 @@ public class User {
         return this.id;
     }
 
-
     // Default constructor for frameworks like JPA or for testing
     public User() {}
 }

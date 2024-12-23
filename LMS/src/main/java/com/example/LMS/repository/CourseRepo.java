@@ -9,13 +9,14 @@ import java.util.Optional;
 import com.example.LMS.model.Lesson;
 import org.springframework.stereotype.Repository;
 
+import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Course;
 
 @Repository
 public class CourseRepo {
     private final Map<Long, Course> courses = new HashMap<>();
-    private final Map<Long,List<Lesson>>lessons = new HashMap<>();
-
+    private final Map<Long, List<Lesson>> lessons = new HashMap<>();
+    
     public Course save(Course course) {
         courses.put(course.getId(), course);
         return course;
@@ -28,6 +29,7 @@ public class CourseRepo {
     public List<Course> findAll() {
         return new ArrayList<>(courses.values());
     }
+
     public void deleteById(Long id) {
         courses.remove(id);
     }
@@ -36,14 +38,21 @@ public class CourseRepo {
         courses.put(course.getId(), course);
     }
 
-    public Lesson addLesson(Long courseId, Lesson lesson){
-        List<Lesson> lessonList= lessons.getOrDefault(lesson.getCourseId(), new ArrayList<>());
+    public Lesson addLesson(Long courseId, Lesson lesson) {
+        List<Lesson> lessonList = lessons.getOrDefault(lesson.getCourseId(), new ArrayList<>());
         lessonList.add(lesson);
         Course course = courses.get(lesson.getCourseId());
         course.Lessons.add(lesson);
         lessons.put(lesson.getCourseId(), lessonList);
         return lesson;
     }
+    public void addAssigment(Long courseId,Assesment assesment){
+
+        this.findById(courseId).get().addAssigment(assesment);
+    }
+    public List<Assesment> viewAssesments(Long courseId){
+
+        return this.findById(courseId).get().getAssignments();
+    }
 
 }
-
