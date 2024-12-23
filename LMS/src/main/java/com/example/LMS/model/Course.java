@@ -16,6 +16,7 @@ public class Course {
     private List<String> enrolledStudentIds;
     List<Question> questionBank;
     public List<Lesson> Lessons;
+    
     public Course(String title, String description, String instructorId) {
         this.id = CourseIdGenerator.generateId();
         this.title = title;
@@ -24,6 +25,9 @@ public class Course {
         this.enrolledStudentIds = new ArrayList<>();
         this.Lessons = new ArrayList<>();
         this.questionBank = new ArrayList<>();
+    }
+    public Course() {
+        this.enrolledStudentIds = new ArrayList<>();
     }
 
     public void setAssesments(Assesment a) {
