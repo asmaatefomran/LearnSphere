@@ -95,4 +95,11 @@ public class UserService {
 
     }
 
+     // View user role
+     public String viewUserRole(Long userId) {
+        return userRepo.findById(userId)
+                .map(User::getRole)
+                .orElse("User not found");
+    }
+
 }

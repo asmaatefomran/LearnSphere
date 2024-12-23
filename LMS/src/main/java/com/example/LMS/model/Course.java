@@ -14,8 +14,10 @@ public class Course {
     private String instructorId;
     List<Assesment> assesments = new ArrayList<>();
     private List<String> enrolledStudentIds;
+    private List<User> enrolledStudent;
     List<Question> questionBank;
     public List<Lesson> Lessons;
+    
     public Course(String title, String description, String instructorId) {
         this.id = CourseIdGenerator.generateId();
         this.title = title;
