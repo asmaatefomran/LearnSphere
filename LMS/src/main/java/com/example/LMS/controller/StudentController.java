@@ -114,4 +114,10 @@ StudentController {
         return ResponseEntity.ok(reasult);
     }
 
+    @GetMapping("/view course")
+    public ResponseEntity<String> view_course(@RequestParam long CourseID){
+        String result=courseService.view_course(CourseID);
+        return ResponseEntity.ok(result);
+    }
+    
 }
