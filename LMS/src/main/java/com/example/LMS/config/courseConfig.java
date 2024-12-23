@@ -1,21 +1,22 @@
 package com.example.LMS.config;
 
+import com.example.LMS.model.Course;
+import com.example.LMS.service.CourseService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.example.LMS.service.CourseService;
+
 @Configuration
 public class courseConfig {
-
-    @Bean(name = "courseCommandLineRunner")
+    @Bean(name = "CourseCommandLineRunner")
     CommandLineRunner commandLineRunner(CourseService repository) {
         return args -> {
-
-            repository.createCourse("c1", "c1", 6L);
-            repository.createCourse("c1", "c1", 16L);
-            repository.createCourse("c1", "c1", 16L);
-            repository.createCourse("c1", "c1", 16L);
-            repository.createCourse("c1", "c1", 16L);
+            repository.createCourse("CS","Course for first grade",6L);
+            repository.createCourse("DB"," Course for Second grade",6L);
+            repository.createCourse("Algo"," Course for Second grade",6L);
+            repository.createCourse("Arch"," Course for Third grade",6L);
         };
     }
+
 }
+

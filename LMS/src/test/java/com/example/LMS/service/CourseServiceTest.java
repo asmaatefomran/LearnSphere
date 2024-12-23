@@ -26,15 +26,15 @@ class CourseServiceTest {
 
     @Test
     void testCreateCourse() {
-        Course course = courseService.createCourse("Java Basics", "Learn Java from scratch", "instructor1");
+        Course course = courseService.createCourse("Java Basics", "Learn Java from scratch", 1L );
         assertNotNull(course.getId());
         assertEquals("Java Basics", course.getTitle());
     }
 
     @Test
     void testGetAllCourses() {
-        courseService.createCourse("Java Basics", "Learn Java", "instructor1");
-        courseService.createCourse("Python Basics", "Learn Python", "instructor2");
+        courseService.createCourse("Java Basics", "Learn Java", 1L);
+        courseService.createCourse("Python Basics", "Learn Python", 2L);
 
         List<Course> courses = courseService.getAllCourses();
         assertEquals(2, courses.size());
@@ -42,7 +42,7 @@ class CourseServiceTest {
     @Test
 void testDeleteCourseWhenFound() {
   
-    Course course = courseService.createCourse("Java Basics", "Learn Java", "123");
+    Course course = courseService.createCourse("Java Basics", "Learn Java", 123L);
     Long courseId = course.getId();
 
    
@@ -65,11 +65,11 @@ void testDeleteCourseWhenNotFound() {
 @Test
 void testUpdateCoursewhenfound() {
     // Create a course to update
-    Course course = courseService.createCourse("Java Basics", "Learn Java", "123");
+    Course course = courseService.createCourse("Java Basics", "Learn Java", 123L);
     Long courseId = course.getId();
 
    
-    Course updatedCourse=new Course("SoftWare2","Advanced Software","123");
+    Course updatedCourse=new Course("SoftWare2","Advanced Software",123L);
     boolean isUpdated = courseService.updateCourse(courseId, updatedCourse);
 
     
@@ -85,7 +85,7 @@ void testUpdateCourseWhenNotFound() {
    
     Long CourseId = 999L; 
 
-    Course updatedCourse=new Course("SoftWare2","Advanced Software","123");
+    Course updatedCourse=new Course("SoftWare2","Advanced Software",123L);
     boolean isUpdated = courseService.updateCourse(CourseId, updatedCourse);
     assertFalse(isUpdated);
 }

@@ -16,11 +16,11 @@ public class Course {
     private String title;
     private String description;
 
-    private String instructorId;
+    private Long instructorId;
     List<Assesment> assesments = new ArrayList<>();
 
     private List<String> enrolledStudentIds;
-    private final List<Assesment> Assignments;
+    private List<Assesment> Assignments;
     List<Question> questionBank;
     public List<Lesson> Lessons;
 

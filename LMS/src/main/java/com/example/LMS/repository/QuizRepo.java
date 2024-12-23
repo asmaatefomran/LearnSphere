@@ -1,9 +1,5 @@
 package com.example.LMS.repository;
-
-
-import com.example.LMS.controller.QuizController;
 import com.example.LMS.model.Assesment;
-
 import com.example.LMS.model.Course;
 import com.example.LMS.model.Question;
 import com.example.LMS.model.Quiz;
@@ -28,6 +24,7 @@ public class QuizRepo {
 
     public List<Quiz> findAll() {
         return new ArrayList<>(quizes.values());
+    }
 
 //     private final Map<Long, Assesment> Assessments = new HashMap<>(); //malak
 //     public Quiz save( Quiz q){
@@ -44,9 +41,9 @@ public class QuizRepo {
 
 //     }
 
-    public void deleteById(Long id) {
-        Assessments.remove(id);
-    }
+    // public void deleteById(Long id) { //malak
+    //     Assessments.remove(id);
+    // }
 
     public void updateCourse(Quiz q) {
         quizes.put(q.setId(), q);

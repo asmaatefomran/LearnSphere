@@ -27,16 +27,16 @@ public class QuizService {
         return qr.save(q);
 
     }
-    public String uploadAssessment(Long assessID,Long StudentID,String ans){
-        Assesment assessment = qr.findById(assessID);
-        if(assessment==null){
-            throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
+    // public String uploadAssessment(Long assessID,Long StudentID,String ans){ //malak
+    //     Assesment assessment = qr.findById(assessID);
+    //     if(assessment==null){
+    //         throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
 
-        }
-        assessment.addSubmission(StudentID,ans);
-        return ("Submission uploaded for Student ID: " +StudentID);
+    //     }
+    //     assessment.addSubmission(StudentID,ans);
+    //     return ("Submission uploaded for Student ID: " +StudentID);
 
-    }
+    // }
 
 
 

@@ -74,7 +74,7 @@ public class StudentServiceTest {
 
     @Test
     void attend() throws Exception {
-        Course course = new Course("cpp", "C++ Programming", "122");
+        Course course = new Course("cpp", "C++ Programming", 122L);
         Lesson lesson = new Lesson("cp", 1);
         userRepository.saveUser(student);
         courseRepo.save(course);
