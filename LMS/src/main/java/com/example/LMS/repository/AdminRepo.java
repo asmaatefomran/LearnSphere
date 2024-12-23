@@ -18,10 +18,6 @@ public class AdminRepo {
                 .collect(Collectors.toList());
     }
 
-    public void manageEnrolledStudents(Long courseId, List<String> studentNames) {
-        courseEnrollments.put(courseId, studentNames);
-    }
-
     public List<String> getEnrolledStudents(Long courseId) {
         return courseEnrollments.getOrDefault(courseId, Collections.emptyList());
     }
@@ -38,9 +34,8 @@ public class AdminRepo {
         return false;
     }
 
-    // Aggregate data for charts (Dummy data as example)
+
     public Map<String, Integer> generateChartData() {
-        // Example: Number of users by role
         Map<String, Integer> roleCounts = new HashMap<>();
         users.values().forEach(user -> {
             roleCounts.put(user.getRole(), roleCounts.getOrDefault(user.getRole(), 0) + 1);
@@ -48,7 +43,6 @@ public class AdminRepo {
         return roleCounts;
     }
 
-    // Save or update a user
     public void saveUser(User user) {
         users.put(user.getId(), user);
     }

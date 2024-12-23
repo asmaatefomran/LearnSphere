@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Admin extends  User {
-    private Map<Long, List<String>> courseEnrolledStudents; // Course ID -> List of student names
+    private Map<Long, List<String>> courseEnrolledStudents; 
 
     public Admin(String name, String email, String password, String role) {
         super(name, email, password, role);

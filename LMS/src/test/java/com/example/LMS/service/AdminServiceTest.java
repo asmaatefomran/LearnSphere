@@ -48,26 +48,6 @@ class AdminServiceTest {
     }
 
     @Test
-    void manageEnrolledStudents_ShouldAddStudentsToCourse() {
-        Course course = new Course();
-        course.setId(1L);
-        course.setTitle("Math 101");
-        course.setEnrolledStudentIds(Arrays.asList("Student A", "Student B"));
-
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
-
-
-        List<String> newStudents = Arrays.asList("Student C", "Student D", "Student A");
-        adminService.manageEnrolledStudents(1L, newStudents);
-        ArgumentCaptor<Course> courseCaptor = ArgumentCaptor.forClass(Course.class);
-        verify(courseRepository).save(courseCaptor.capture());
-
-        Course savedCourse = courseCaptor.getValue();
-        assertTrue(savedCourse.getEnrolledStudentIds().containsAll(Arrays.asList("Student A", "Student B", "Student C", "Student D")));
-        assertEquals(4, savedCourse.getEnrolledStudentIds().size());
-    }
-
-    @Test
     void manageAdminProfile_ShouldUpdateAdminDetails() {
         adminService.manageAdminProfile("New Admin", "newadmin@example.com", "newpassword");
         String role = adminService.viewUserRoles("newadmin@example.com");
@@ -103,12 +83,10 @@ class AdminServiceTest {
     
         when(courseRepository.findAll()).thenReturn(List.of(course1));
     
-        // Mocking ChartUtils to throw an IOException
         try (MockedStatic<ChartUtils> mockedChartUtils = mockStatic(ChartUtils.class)) {
             mockedChartUtils.when(() -> ChartUtils.saveChartAsPNG(any(File.class), any(), anyInt(), anyInt()))
                             .thenThrow(IOException.class);
-    
-            // Act
+
             String result = adminService.generatePreformedCharts();
             assertTrue(result.contains("Failed to generate preformed charts"));
         }
