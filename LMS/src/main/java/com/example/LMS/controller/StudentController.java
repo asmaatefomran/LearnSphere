@@ -1,19 +1,26 @@
 package com.example.LMS.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.LMS.model.Lesson;
 import com.example.LMS.model.Notification;
 import com.example.LMS.model.Student;
 import com.example.LMS.model.User;
+import com.example.LMS.service.CourseService;
 import com.example.LMS.service.NotificationService;
 import com.example.LMS.service.QuizService;
 import com.example.LMS.service.StudentService;
 import com.example.LMS.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/student")
@@ -28,6 +35,7 @@ StudentController {
     private NotificationService notificationService;
     @Autowired
     private QuizService quizService;
+    private CourseService courseService;
 
     @PostMapping("/register")
     public ResponseEntity<User> registerStudent(@RequestBody Student student) {

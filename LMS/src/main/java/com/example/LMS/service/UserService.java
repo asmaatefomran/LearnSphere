@@ -44,7 +44,9 @@ public class UserService {
     public Optional<User> findByEmail(String email) {
         return userRepo.findUserViaEmail(email); // Delegate to UserRepo
     }
-
+    public Optional<User> findById(Long Id) {
+        return userRepo.findById(Id);
+    }
     public List<User> getAllUsers() {
         return userRepo.findAllUsers();
     }
