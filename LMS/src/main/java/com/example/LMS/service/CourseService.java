@@ -69,4 +69,9 @@ public class CourseService {
         return Optional.ofNullable(courseRepository.addLesson(lesson.getCourseId(), lesson));
     }
 
+    public String view_course( long CourseID){
+        return courseRepository.view_course(CourseID);
+    }
+    
+
 }
