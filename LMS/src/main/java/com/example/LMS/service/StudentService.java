@@ -93,11 +93,11 @@ public class StudentService {
                 Student student = (Student) studentOptional.get();
 
                 // Check if the student is already in the attendees list
-                if (!lesson.getAttendees().contains(student)) {
+               if (!lesson.getAttendees().contains(student)) {
                     // Add the student to the attendees list
                     lesson.getAttendees().add(student);
                     return Optional.of(lesson);
-                } else {
+               } else {
                     throw new IllegalStateException("Student is already attending this Lesson.");
                 }
             } else {
