@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class courseConfig {
-    @Bean(name = "CourseCommandLineRunner")
+    @Bean(name = "courseCommandLineRunner")
     CommandLineRunner commandLineRunner(CourseService repository) {
         return args -> {
             repository.createCourse("CS","Course for first grade",6L);
