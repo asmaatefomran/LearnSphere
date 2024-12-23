@@ -1,10 +1,14 @@
 package com.example.LMS.repository;
 
-import com.example.LMS.model.Student;
-import com.example.LMS.model.User;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import com.example.LMS.model.User;
 
 @Repository
 public class UserRepo {
@@ -36,21 +40,21 @@ public class UserRepo {
                 .filter(user -> user.getEmail().equalsIgnoreCase(email))
                 .findFirst();
     }
-
+    
     public boolean existsByEmail(String email) {
         return findUserViaEmail(email).isPresent();
     }
 
-    public Optional<User> findById(String id) {
-        return users.values().stream()
-                .filter(user -> user.getEmail().equalsIgnoreCase(id))
-                .findFirst();
+    public Optional<User> findById(Long id) {
+          return Optional.ofNullable(users.get(id));
     }
 
     public List<User> findAllUsers() {
         return new ArrayList<>(users.values());
     }
-
+    public void deleteById(Long id) {
+        users.remove(id);
+    }
     public User getUserById(Long id) {
         if (!users.containsKey(id)) {
             throw new IllegalArgumentException("User with ID " + id + " does not exist.");

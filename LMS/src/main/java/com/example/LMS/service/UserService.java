@@ -1,14 +1,14 @@
 package com.example.LMS.service;
 
-import com.example.LMS.model.Course;
-import com.example.LMS.model.User;
-import com.example.LMS.repository.UserRepo;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.LMS.model.User;
+import com.example.LMS.repository.UserRepo;
 
 @Service
 public class UserService {
@@ -47,6 +47,42 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepo.findAllUsers();
+    }
+    public boolean deleteUser(Long id) {
+        Optional<User> user = userRepo.findById(id);
+        if (user.isPresent()) {
+            userRepo.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+    public boolean UpdateUser(Long id, User user) {
+
+        Optional<User> checkuser = userRepo.findById(id);
+
+        if (checkuser.isPresent()) {
+             User existingUser = checkuser.get();
+
+
+            if (user.getName() != null) {
+                existingUser.setName(user.getName());
+            }
+            if (user.getPassword() != null) {
+                existingUser.setPassword(user.getPassword());
+            }
+            if (user.getEmail()!= null) {
+                existingUser.setEmail(user.getEmail());
+            }
+            if (user.getRole()!= null) {
+                existingUser.setRole(user.getRole());
+            }
+            if(user.getNotififcations()!=null)
+               existingUser.setNotififcations(user.getNotififcations());
+
+            return true;
+        }
+
+        return false;
     }
 
     public User update(User u){
