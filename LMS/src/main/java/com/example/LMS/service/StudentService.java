@@ -22,12 +22,11 @@ public class StudentService {
 
 
     //=============================================================
-    public Optional<User> register(User user) {
+    public Optional<User> register(Student user) {
         assert userRepo != null;
         if (userRepo.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email already in use.");
         }
-
         // Save the user and return it
         User savedUser = userRepo.saveUser(user);
 
@@ -59,6 +58,7 @@ public class StudentService {
         return studentRepo.UnEnrollFromCourse(courseId,studentId);
     }
     public Optional<Lesson> FindLessonByName(String name, Long courseId) {
+            System.out.println("course found");
         Optional<Course> courseOptional = courseService.getCourseById(courseId);
 
         // If the course exists, search for the Lesson by name
@@ -88,14 +88,14 @@ public class StudentService {
         if (lesson1.isPresent()) {
             Lesson lesson = lesson1.get();
 
-            Optional<User> studentOptional = Optional.ofNullable(userRepo.getUserById(studentId));
+            Optional<User> studentOptional = Optional.ofNullable(userRepo.getUserById(studentId)).stream().findFirst();
             if (studentOptional.isPresent()) {
-                Student student = (Student) studentOptional.get();
+                Student student =(Student) studentOptional.get();
 
                 // Check if the student is already in the attendees list
                if (!lesson.getAttendees().contains(student)) {
                     // Add the student to the attendees list
-                    lesson.getAttendees().add(student);
+                    lesson.getAttendees().add( student);
                     return Optional.of(lesson);
                } else {
                     throw new IllegalStateException("Student is already attending this Lesson.");

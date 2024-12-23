@@ -17,13 +17,22 @@ public class User {
     private String role;
     List<Notification> notififcations;
 
-    public User(String name, String email, String password, String role) {
+    public User(String name, String email, String password,String role) {
         this.id = UserIdGenerotor.generateId();
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+
     }
+    public User(String name, String email, String password) {
+        this.id = UserIdGenerotor.generateId();
+        this.name = name;
+        this.email = email;
+        this.password = password;
+
+    }
+
 
     // Custom setter for id
     public long setId() {

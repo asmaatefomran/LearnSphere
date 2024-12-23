@@ -19,6 +19,7 @@ public class CourseRepo {
 
     public Course save(Course course) {
         courses.put(course.getId(), course);
+        System.out.println("course saved");
         return course;
     }
 

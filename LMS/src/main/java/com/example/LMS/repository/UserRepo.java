@@ -17,6 +17,7 @@ public class UserRepo {
     public User saveUser(User user) {
         user.setId();
         users.put(user.getId(), user);
+        System.out.println("user saved"+ user.getName());
         return user;
     }
 
@@ -50,6 +51,7 @@ public class UserRepo {
     }
 
     public List<User> findAllUsers() {
+
         return new ArrayList<>(users.values());
     }
     public void deleteById(Long id) {

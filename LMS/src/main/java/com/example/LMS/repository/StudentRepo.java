@@ -76,20 +76,48 @@ public class StudentRepo {
 //=============================================================
 
     public User updateStudent(Student u) {
-        User userToUpdate = userRepo.getUserById(u.getId());
-        if (u.getGPA() >= 0.0 && u.getGPA() <= 4.0) {((Student) userToUpdate).setGPA(u.getGPA());}
+        Optional<User> userToUpdate = userRepo.findUserViaEmail(u.getEmail());
 
-        if (u.getName() != null) {userToUpdate.setName(u.getName());}
+        if (userToUpdate.isPresent()) {
+            Student existingUser = (Student) userToUpdate.get();
 
-        if (u.getPassword() != null) {userToUpdate.setPassword(u.getPassword());}
+            // Update GPA if it's within the valid range
+            if (u.getGPA() >= 0.0 && u.getGPA() <= 4.0) {
+                existingUser.setGPA(u.getGPA());
+            }
 
-        if (u.getMajor() != null) {((Student) userToUpdate).setMajor(u.getMajor());}
+            // Update name if it's not null
+            if (u.getName() != null) {
+                existingUser.setName(u.getName());
+            }
 
-        if (u.getGraduationYear() > 0) {((Student) userToUpdate).setGraduationYear(u.getGraduationYear());}
+            if (u.getPassword() != null) {
+                existingUser.setPassword(u.getPassword());
+            }
 
-        if (u.getCourses() != null && !u.getCourses().isEmpty()) {((Student) userToUpdate).setCourses(u.getCourses());}
+            if (existingUser instanceof Student) {
+                Student student = (Student) existingUser;
 
-        return userToUpdate;
+                if (u.getMajor() != null) {
+                    student.setMajor(u.getMajor());
+                }
+
+                if (u.getGraduationYear() > 0) {
+                    student.setGraduationYear(u.getGraduationYear());
+                }
+
+                if (u.getCourses() != null && !u.getCourses().isEmpty()) {
+                    student.setCourses(u.getCourses());
+                }
+            }
+
+            // Save and return the updated user
+            return userRepo.updateUser(existingUser);
+        } else {
+            // Return null or throw exception if user is not found
+            return null;
+        }
     }
+
 
 }

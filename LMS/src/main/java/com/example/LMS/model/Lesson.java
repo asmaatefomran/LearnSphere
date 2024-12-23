@@ -18,6 +18,11 @@ public class Lesson {
     String instructorId;
     Long CourseId;
 
+    public Lesson(String name, long l) {
+this.name = name;
+this.CourseId = l;
+    }
+
     public boolean isStudentAttending(Student student) {
         return attendees.contains(student);
     }
