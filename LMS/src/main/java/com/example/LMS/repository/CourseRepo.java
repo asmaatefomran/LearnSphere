@@ -53,6 +53,17 @@ public class CourseRepo {
         return courses.get(a.getCourseID());
 
     }
+    
+    public  String view_course( long CourseID) {
+        // Check if the course exists in the courses map
+        Course course = courses.get(CourseID);
+        if (course == null) {
+            return "Course not found.";
+        }
+        else{
+            return course.getDescription();
+        }
+    }
 
 }
 
