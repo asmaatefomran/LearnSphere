@@ -85,7 +85,7 @@ public class InstructorController {
             @RequestParam Long InstId) {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
-            Long id = course.get().getInstructorId();
+            Long id = Long.parseLong(course.get().getInstructorId());
             if (id.equals(InstId)) {
                 if (userService.deleteUser(studId))
                     return ResponseEntity.status(HttpStatus.CREATED)
@@ -107,7 +107,7 @@ public class InstructorController {
             @RequestBody Assesment assesment) {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
-            Long id = course.get().getInstructorId();
+            Long id = Long.parseLong(course.get().getInstructorId());
             if (id.equals(InstId)) {
                 assesment.setCourseID(courseId);
                 assesment.setInstructorId(InstId);
@@ -156,7 +156,7 @@ public class InstructorController {
             @RequestParam Long InstId) {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
-            Long id = course.get().getInstructorId();
+            Long id = Long.parseLong(course.get().getInstructorId());
             if (id.equals(InstId)) {
                 Quiz createdQuiz = quizService.createQuiz(q);
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdQuiz.toString());

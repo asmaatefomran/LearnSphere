@@ -28,7 +28,7 @@ public class QuizService {
 
     }
     public String uploadAssessment(Long assessID,Long StudentID,String ans){
-        Assesment assessment = qr.findById(assessID);
+        Assesment assessment = qr.findAById(assessID);
         if(assessment==null){
             throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
 

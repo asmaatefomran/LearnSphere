@@ -29,14 +29,14 @@ public class CourseController {
     // Endpoint for creating a course
     @PostMapping
     public ResponseEntity<String> createCourse(@RequestBody Course course) {
-        Optional<User> instructor = userService.findById(course.getInstructorId());
+        Optional<User> instructor = userService.findById(Long.parseLong(course.getInstructorId()));
         if (instructor.isPresent()) {
-            User user = userService.getUserbyId(course.getInstructorId());
+            User user = userService.getUserbyId(Long.parseLong(course.getInstructorId()));
             if (user.getRole().equalsIgnoreCase("instructor")) {
                 Course createdCourse = courseService.createCourse(
                         course.getTitle(),
                         course.getDescription(),
-                        course.getInstructorId());
+                        Long.parseLong(course.getInstructorId()));
 
                 // instructor.setCourseTaughtID(course.getId());
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdCourse.toString());

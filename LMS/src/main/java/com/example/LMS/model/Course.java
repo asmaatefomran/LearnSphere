@@ -20,7 +20,7 @@ public class Course {
     List<Assesment> assesments = new ArrayList<>();
 
     private List<String> enrolledStudentIds;
-    private final List<Assesment> Assignments;
+    private final List<Assesment> Assignments = new ArrayList<>();
     List<Question> questionBank;
     public List<Lesson> Lessons;
 
@@ -30,11 +30,11 @@ public class Course {
         this.id = CourseIdGenerator.generateId();
         this.title = title;
         this.description = description;
-        this.instructorId = instructorId;
+        this.instructorId = String.valueOf(instructorId);
         this.enrolledStudentIds = new ArrayList<>();
         this.Lessons = new ArrayList<>();
         this.questionBank = new ArrayList<>();
-        this.Assignments = new ArrayList<>();
+        
     }
 
     public void addAssigment(Assesment ass) {
