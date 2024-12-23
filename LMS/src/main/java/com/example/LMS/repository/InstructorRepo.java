@@ -1,5 +1,5 @@
-// package com.example.LMS.repository;
+package com.example.LMS.repository;
 
-// public class InstructorRepo {
+public class InstructorRepo {
 
-// }
+}

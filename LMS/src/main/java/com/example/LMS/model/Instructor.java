@@ -4,4 +4,5 @@ import java.util.List;
 
 public class Instructor extends User {
     private List<Course> coursesTaught;
+    
 }
