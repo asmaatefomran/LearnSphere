@@ -75,19 +75,21 @@ public class StudentServiceTest {
     @Test
     void attend() throws Exception {
         Course course = new Course("cpp", "C++ Programming", 122L);
-        Lesson lesson = new Lesson("cp", 1);
+        Lesson lesson = new Lesson("cp", course.getId());
         userRepository.saveUser(student);
         courseRepo.save(course);
-        courseRepo.addLesson(1L, lesson);
+        System.out.println(student.getId());
+        courseRepo.addLesson(course.getId(), lesson);
+        System.out.println(course.getId());
         var result = mockMvc.perform(MockMvcRequestBuilders.get("/api/student/attendlesson")
-                        .param("Studid", "23")
+                        .param("Studid", "24")
                         .param("Lessonname", "cp")
-                        .param("Couid", "1"))
+                        .param("Couid", "5"))
                 .andExpect(status().isOk())
                 .andReturn();
         String responseBody = result.getResponse().getContentAsString();
         assertTrue(responseBody.contains("cp"));
-        assertEquals("{\"name\":\"cp\",\"questions\":[],\"attendees\":[{\"id\":23,\"name\":\"malak\",\"email\":\"malak.@gmail.com\",\"password\":\"123456\",\"role\":\"student\",\"notififcations\":null,\"major\":null,\"courses\":null,\"gpa\":0.0,\"graduationYear\":0}],\"instructorId\":null,\"courseId\":1}", responseBody);
+        assertEquals("{\"name\":\"cp\",\"questions\":[],\"attendees\":[{\"id\":24,\"name\":\"malak\",\"email\":\"malak.@gmail.com\",\"password\":\"123456\",\"role\":\"student\",\"notififcations\":null,\"major\":null,\"courses\":null,\"gpa\":0.0,\"graduationYear\":0}],\"instructorId\":null,\"courseId\":5}", responseBody);
     }
 
 }
