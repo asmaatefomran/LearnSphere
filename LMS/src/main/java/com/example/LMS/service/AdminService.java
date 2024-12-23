@@ -14,8 +14,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class AdminService {
@@ -37,8 +40,26 @@ public class AdminService {
 
     // Manage enrolled students
     public void manageEnrolledStudents(Long courseId, List<String> students) {
-        admin.getCourseEnrolledStudents().put(courseId, students);
+        // Fetch the course by ID from the repository
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new IllegalArgumentException("Course with ID " + courseId + " not found"));
+    
+        // Initialize the enrolled student list if it is null
+        if (course.getEnrolledStudentIds() == null) {
+            course.setEnrolledStudentIds(new ArrayList<>());
+        }
+    
+        // Add the new students while avoiding duplicates
+        Set<String> uniqueStudents = new HashSet<>(course.getEnrolledStudentIds());
+        uniqueStudents.addAll(students);
+    
+        // Update the course with the new list
+        course.setEnrolledStudentIds(new ArrayList<>(uniqueStudents));
+    
+        // Manually update the course in the repository
+        courseRepository.save(course);
     }
+    
 
     // View enrolled students in each course
     public List<String> viewEnrolledStudents(Long courseId) {
@@ -59,7 +80,7 @@ public class AdminService {
         // Create a dataset based on the data
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (Course course : courses) {
-            int enrolledStudents = course.getEnrolledStudent().size(); // Assuming Course has a list of enrolled students
+            int enrolledStudents = course.getEnrolledStudentIds().size(); // Assuming Course has a list of enrolled students
             dataset.addValue(enrolledStudents, "Students", course.getTitle());
         }
 

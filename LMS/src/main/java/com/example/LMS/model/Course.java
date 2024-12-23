@@ -14,7 +14,6 @@ public class Course {
     private String instructorId;
     List<Assesment> assesments = new ArrayList<>();
     private List<String> enrolledStudentIds;
-    private List<User> enrolledStudent;
     List<Question> questionBank;
     public List<Lesson> Lessons;
     
@@ -26,6 +25,9 @@ public class Course {
         this.enrolledStudentIds = new ArrayList<>();
         this.Lessons = new ArrayList<>();
         this.questionBank = new ArrayList<>();
+    }
+    public Course() {
+        this.enrolledStudentIds = new ArrayList<>();
     }
 
     public void setAssesments(Assesment a) {
