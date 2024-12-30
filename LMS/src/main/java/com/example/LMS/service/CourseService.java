@@ -34,6 +34,7 @@ public class CourseService {
     }
 
     public Optional<Course> getCourseById(Long id) {
+        System.out.println("hh");
         return courseRepository.findById(id);
     }
 

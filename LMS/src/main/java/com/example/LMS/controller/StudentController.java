@@ -53,7 +53,7 @@ StudentController {
     public ResponseEntity<User> loginStudent(@RequestParam String email, @RequestParam String password) {
         User loggedInUser = userService.login(email, password).orElse(null);
         if (loggedInUser != null) {
-         loggedInUser.getNotifications().add(notificationService.AddNotification("You have loggined Successfully", loggedInUser.getId()));
+         notificationService.AddNotification("You have loggined Successfully", loggedInUser.getId());
             return ResponseEntity.ok(loggedInUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -64,11 +64,13 @@ StudentController {
     public ResponseEntity<String> enroll(@RequestParam Long StudId, @RequestParam long Couid) {
 
         String result = studentService.EnrollInCourse(StudId, Couid);
-        userService.getUserbyId(StudId).getNotifications().add(notificationService.AddNotification("You have enrolled the Course with id  "+  Couid +"Successfully",StudId)) ;
         Optional<Course> optionalCourse = courseService.getCourseById(Couid);
         Course course = optionalCourse.get();
-        long instructorId = Long.parseLong (course.getInstructorId());
-        notificationService.notifyInstructorForEnrollment(instructorId, "A student has enrolled in your course: " + course.getTitle() + " and his id is  " + StudId);
+        System.out.println(course.getInstructorId());
+        System.out.println("here");
+        System.out.println("not");
+      //  long instructorId = Long.parseLong (course.getInstructorId());
+      //  notificationService.notifyInstructorForEnrollment(instructorId, "A student has enrolled in your course: " + course.getTitle() + " and his id is  " + StudId);
         notificationService.AddNotification("You have enrolled the course that it's id: "+Couid+" and name is: "+ course.getTitle() +" Successfully",StudId);
 
         return ResponseEntity.ok(result);
@@ -97,9 +99,10 @@ StudentController {
     @PostMapping("/update")
     public ResponseEntity<Optional<User>> updateStudent(@RequestBody Student stu){
     Optional<User> updatedUser = studentService.updateStudent(stu);
-        if (updatedUser != null) {
+        if (updatedUser.isPresent()) {
             User u = updatedUser.get();
-            u.getNotifications().add(notificationService.AddNotification("Your profile has been updated",stu.getId()));
+
+            notificationService.AddNotification("Your profile has been updated",u.getId());
             return ResponseEntity.ok(updatedUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -110,7 +113,7 @@ StudentController {
 ;
         Optional<Lesson> l = studentService.attendlesson(Studid,Lessonname,Couid);
         if(l.isPresent())
-        userService.getUserbyId(Studid).getNotifications().add(notificationService.AddNotification("Your attendance has been recorded!",Studid));
+            notificationService.AddNotification("Your attendance has been recorded!",Studid);
         return ResponseEntity.ok().body(l);
     }
 

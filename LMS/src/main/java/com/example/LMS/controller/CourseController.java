@@ -84,7 +84,7 @@ public class CourseController {
             @RequestBody Lesson lesson) {
         Optional<Course> course = courseService.getCourseById(courseID);
         if (course.isPresent()) {
-            if (course.get().getInstructorId().equals(InstId)) {
+            if (Long.parseLong(course.get().getInstructorId())==(InstId)) {
                 lesson.setCourseId(courseID);
                 Optional<Lesson> lesson1 = courseService.addLesson(lesson);
                 return ResponseEntity.status(HttpStatus.CREATED).body(lesson1.toString());

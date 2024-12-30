@@ -39,12 +39,12 @@ public class StudentRepo {
 
         List<String> enrolledStudentIds = course.getEnrolledStudentIds();
 
-
         if (!enrolledStudentIds.contains(studentId)) {
             Student st = (Student) userRepo.getUserById(Long.parseLong(studentId));
             st.getCourses().add(course);
             enrolledStudentIds.add(studentId);
             courseRepo.updateCourse(course);
+            System.out.println(st.getName());
             return "Student enrolled successfully.";
         } else {
             return "Student is already enrolled in this course.";
@@ -80,6 +80,7 @@ public class StudentRepo {
         Optional<User> userToUpdate = userRepo.findUserViaEmail(u.getEmail());
 
         if (userToUpdate.isPresent()) {
+            System.out.println("here");
             Student existingUser = (Student) userToUpdate.get();
 
             // Update GPA if it's within the valid range
@@ -112,7 +113,6 @@ public class StudentRepo {
                 }
             }
 
-            // Save and return the updated user
             return userRepo.updateUser(existingUser);
         } else {
             // Return null or throw exception if user is not found

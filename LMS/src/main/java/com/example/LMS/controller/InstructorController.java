@@ -159,6 +159,7 @@ public class InstructorController {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
             Long id = Long.parseLong(course.get().getInstructorId());
+
             if (id.equals(InstId)) {
                 Quiz createdQuiz = quizService.createQuiz(q);
                 return ResponseEntity.status(HttpStatus.CREATED).body(createdQuiz.toString());
