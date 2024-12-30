@@ -42,4 +42,10 @@ public class User {
 
     // Default constructor for frameworks like JPA or for testing
     public User() {}
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
+                + ", notififcations=" + notififcations + "]";
+    }
+    
 }

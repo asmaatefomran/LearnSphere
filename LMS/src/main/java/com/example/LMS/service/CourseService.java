@@ -1,15 +1,19 @@
 package com.example.LMS.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.example.LMS.model.Lesson;
+import com.example.LMS.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Course;
 import com.example.LMS.repository.CourseRepo;
+import com.example.LMS.repository.UserRepo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +25,8 @@ public class CourseService {
 
     @Autowired
     private CourseRepo courseRepository;
+    @Autowired
+    private UserRepo ur;
 
     public Course createCourse(String title, String description, Long instructorId) {
         Course course = new Course(title, description, instructorId);
@@ -82,6 +88,16 @@ public class CourseService {
     public String view_course( long CourseID){
         return courseRepository.view_course(CourseID);
     }
+    public List<User> getEnrolledStudentIds(List<String> enrolledStudentIds) {
+           List<User> students = new ArrayList<>();
+    for (String studentid : enrolledStudentIds) {
+        User student = ur.getUserById(Long.parseLong(studentid));
+        System.out.println(student);
+        students.add(student);
+        
+    }
+        return students;
+}
     
 
 }

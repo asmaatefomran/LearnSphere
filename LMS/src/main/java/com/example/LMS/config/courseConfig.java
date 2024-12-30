@@ -12,10 +12,10 @@ public class courseConfig {
     @Bean(name = "CourseCommandLineRunner"  )
     CommandLineRunner commandLineRunner(CourseService repository) {
         return args -> {
-            repository.createCourse("CS","Course for first grade", Long.valueOf("6"));
-            repository.createCourse("DB"," Course for Second grade", Long.valueOf("6"));
-            repository.createCourse(    "Algo"," Course for Second grade", Long.valueOf("6"));
-            repository.createCourse("Arch"," Course for Third grade", Long.valueOf("6"));
+            repository.createCourse("CS","Course for first grade", Long.valueOf("17"));
+            repository.createCourse("DB"," Course for Second grade", Long.valueOf("20"));
+            repository.createCourse(    "Algo"," Course for Second grade", Long.valueOf("17"));
+            repository.createCourse("Arch"," Course for Third grade", Long.valueOf("21"));
         };
     }
 

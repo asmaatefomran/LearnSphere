@@ -20,6 +20,7 @@ import com.example.LMS.model.Quiz;
 import com.example.LMS.model.StudentGradeFeedback;
 import com.example.LMS.model.User;
 import com.example.LMS.service.CourseService;
+import com.example.LMS.service.InstructorService;
 import com.example.LMS.service.QuizService;
 // import com.example.LMS.service.InstructorService;
 import com.example.LMS.service.UserService;
@@ -41,6 +42,8 @@ public class InstructorController {
     private CourseService courseService;
     @Autowired
     private QuizService quizService;
+    @Autowired
+    private InstructorService instructorService;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody Instructor instructor) {
@@ -177,5 +180,19 @@ public class InstructorController {
 
     // return new String();
     // }
+    @GetMapping("/viewEnrollStud")
+    public ResponseEntity<String> viewEnrolledStudents(@RequestParam String instructorId, @RequestParam Long couid) {
+        try {
+            List<User> enrolled=instructorService.viewStudentInCourse(instructorId,couid);
+            return ResponseEntity.ok(enrolled.toString());
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Invalid request: " + e.getMessage());
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("al dnia msh tmm");
+        }
+
+    }
 
 }
