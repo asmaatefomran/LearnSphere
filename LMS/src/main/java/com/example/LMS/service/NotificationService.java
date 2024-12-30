@@ -21,7 +21,7 @@ public class NotificationService {
         n.setId();
         User userOptional = userService.getUserbyId(recipientID);
             if (userOptional.getNotifications() == null) {
-        userOptional.setNotifications(new ArrayList<>());  // Initialize if it's null
+        userOptional.setNotifications(new ArrayList<>());
     }
         userOptional.getNotifications().add(n);
         userService.update(userOptional);

@@ -15,17 +15,11 @@ import com.example.LMS.model.User;
 @Repository
 public class UserRepo {
     private final Map<Long, User> users = new HashMap<>();
-    @Autowired
-    private final NotificationService notificationService;
 
-    public UserRepo(NotificationService notificationService) {
-        this.notificationService = notificationService;
-    }
 
     public User saveUser(User user) {
         user.setId();
-        user.getNotififcations().add(        notificationService.AddNotification("You have registered Successfully",user.getId())
-        );
+
         users.put(user.getId(), user);
         System.out.println("user saved"+ user.getName());
         return user;

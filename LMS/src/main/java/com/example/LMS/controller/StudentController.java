@@ -42,6 +42,7 @@ StudentController {
     public ResponseEntity<User> registerStudent(@RequestBody Student student) {
         User registeredUser = userService.register(student);
         if (registeredUser != null) {
+            notificationService.AddNotification("You have registered Successfully", registeredUser.getId());
             return ResponseEntity.ok(registeredUser);
         } else {
             return ResponseEntity.badRequest().build();
