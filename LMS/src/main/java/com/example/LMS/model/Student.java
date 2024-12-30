@@ -2,6 +2,7 @@ package com.example.LMS.model;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 @Getter
 @Setter
@@ -12,7 +13,7 @@ public class Student extends User {
     private String major;
     private float GPA;
     private int GraduationYear;
-    private List<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
 
     public Student(String name, String mail, String password,String role) {

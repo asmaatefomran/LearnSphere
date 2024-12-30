@@ -41,7 +41,6 @@ StudentController {
     public ResponseEntity<User> registerStudent(@RequestBody Student student) {
         User registeredUser = userService.register(student);
         if (registeredUser != null) {
-            notificationService.AddNotification("You have registered Successfully",registeredUser.getId());
             return ResponseEntity.ok(registeredUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -50,10 +49,9 @@ StudentController {
 
     @PostMapping("/login")
     public ResponseEntity<User> loginStudent(@RequestParam String email, @RequestParam String password) {
-        // Call the login method in UserService
         User loggedInUser = userService.login(email, password).orElse(null);
-
         if (loggedInUser != null) {
+         loggedInUser.getNotififcations().add(notificationService.AddNotification("You have loggined Successfully", loggedInUser.getId()));
             return ResponseEntity.ok(loggedInUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -63,11 +61,9 @@ StudentController {
     @PostMapping("/enroll")
     public ResponseEntity<String> enroll(@RequestParam Long StudId, @RequestParam long Couid) {
 
-        // Call the enrollInCourse method from the StudentService
         String result = studentService.EnrollInCourse(StudId, Couid);
-        notificationService.AddNotification("You have enrolled the {Couid} Successfully",StudId);
+        userService.getUserbyId(StudId).getNotififcations().add(notificationService.AddNotification("You have enrolled the Course with id  "+  Couid +"Successfully",StudId)) ;
 
-        // Return the response
         return ResponseEntity.ok(result);
     }
 
@@ -77,7 +73,7 @@ StudentController {
         long courseId = Couid;
 
         String result = studentService.UnEnrollFromCourse(Long.valueOf(studentId),courseId);
-        notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId);
+        userService.getUserbyId(StudId).getNotififcations().add(notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId));
 
         return ResponseEntity.ok(result);
     }
@@ -95,16 +91,19 @@ StudentController {
     public ResponseEntity<Optional<User>> updateStudent(@RequestBody Student stu){
     Optional<User> updatedUser = studentService.updateStudent(stu);
         if (updatedUser != null) {
+            User u = updatedUser.get();
+            u.getNotififcations().add(notificationService.AddNotification("Your profile has been updated",stu.getId()));
             return ResponseEntity.ok(updatedUser);
         } else {
             return ResponseEntity.badRequest().build();
         }
     }
-    // not tested yet
     @GetMapping("/attendlesson")
     public ResponseEntity<Optional<Lesson>> attendLesson(@RequestParam long Studid, @RequestParam String Lessonname, @RequestParam Long Couid){
 ;
         Optional<Lesson> l = studentService.attendlesson(Studid,Lessonname,Couid);
+        if(l.isPresent())
+        userService.getUserbyId(Studid).getNotififcations().add(notificationService.AddNotification("Your attendance has been recorded!",Studid));
         return ResponseEntity.ok().body(l);
     }
 
@@ -115,12 +114,12 @@ StudentController {
         return ResponseEntity.ok().body(notificationList);
     }
 
-    // @PostMapping("/uploadassign")
-    // public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
-    //                                                @RequestParam String ans ){
-    //     String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
-    //     return ResponseEntity.ok(reasult);
-    // }
+     @PostMapping("/uploadassign")
+     public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
+                                                    @RequestParam String ans ){
+         String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
+         return ResponseEntity.ok(reasult);
+     }
 
     @GetMapping("/view course")
     public ResponseEntity<String> view_course(@RequestParam long CourseID){

@@ -3,6 +3,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class User {
     private String email;
     private String password;
     private String role;
-    List<Notification> notififcations;
+    List<Notification> notififcations = new ArrayList<>();
 
     public User(String name, String email, String password,String role) {
         this.id = UserIdGenerotor.generateId();

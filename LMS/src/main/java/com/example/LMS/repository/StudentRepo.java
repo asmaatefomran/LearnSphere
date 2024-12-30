@@ -14,6 +14,7 @@ public class StudentRepo {
     private final UserRepo userRepo;
     private final CourseRepo courseRepo;
 
+
     @Autowired
     public StudentRepo(UserRepo userRepo,CourseRepo courseRepo){
 
@@ -36,16 +37,14 @@ public class StudentRepo {
 
         Course course = courseOptional.get();
 
-        // Add the student ID to the list of enrolled students
         List<String> enrolledStudentIds = course.getEnrolledStudentIds();
 
 
         if (!enrolledStudentIds.contains(studentId)) {
+            Student st = (Student) userRepo.getUserById(Long.parseLong(studentId));
+            st.getCourses().add(course);
             enrolledStudentIds.add(studentId);
-
-            // Update the course in the repository
-
-          courseRepo.updateCourse(course);
+            courseRepo.updateCourse(course);
             return "Student enrolled successfully.";
         } else {
             return "Student is already enrolled in this course.";
@@ -64,9 +63,11 @@ public class StudentRepo {
         List<String> enrolledStudentIds = course.getEnrolledStudentIds();
 
         // Check if the student is currently enrolled
-        if (enrolledStudentIds.contains(studentId)) {
-            enrolledStudentIds.remove(studentId);
+        if (enrolledStudentIds.contains(String.valueOf(studentId))) {
+            enrolledStudentIds.remove(String.valueOf(studentId));
             // Update the course in the repository
+            Student st = (Student) userRepo.getUserById(studentId);
+            st.getCourses().remove(course);
            courseRepo.updateCourse(course);
             return "Student UnEnrolled successfully.";
         } else {
