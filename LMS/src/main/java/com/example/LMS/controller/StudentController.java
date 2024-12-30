@@ -124,13 +124,17 @@ StudentController {
          return ResponseEntity.ok(reasult);
      }
 
-//     @PostMapping("/takequiz")
-//     public ResponseEntity<String> takeQuiz(@RequestParam long StudentId,@RequestParam long quizID,@RequestParam  long courseID,
-//                                                    @RequestParam Quiz q ){
-//         String reasult = quizService.uploadAssessment(quizID,StudentId,courseID,ans);
-//         return ResponseEntity.ok(reasult);
-//     }
+    @GetMapping("/takequiz")
+    public ResponseEntity<String> takeQuiz(@RequestParam long StudentId,@RequestParam long quizID){
+        return ResponseEntity.ok(quizService.getQr().getQuizByid(quizID).toString());
+    }
 
+    @PostMapping("/submitQuiz")
+    public ResponseEntity<Integer> submitQuiz(@RequestParam long StudentId,@RequestParam long quizID,@RequestBody List<String>answers) {
+        System.out.println(quizService.getQr().submitQuiz(StudentId, quizID, answers));
+        return ResponseEntity.ok(1);
+    }
+    
 
     @GetMapping("/view course")
     public ResponseEntity<String> view_course(@RequestParam long CourseID){

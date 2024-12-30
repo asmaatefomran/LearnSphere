@@ -134,7 +134,7 @@ public class InstructorController {
 
     @PostMapping("/gradeAssignment")
     public ResponseEntity<String> gradeAssignment(@RequestParam Long courseId, @RequestParam Long assigId,
-            @RequestBody List<HashMap<Long, StudentGradeFeedback>> students) {
+            @RequestBody HashMap<Long, StudentGradeFeedback> students) {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
             Assesment assesment = course.get().getAssesment(assigId);

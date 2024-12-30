@@ -59,8 +59,11 @@ public class QuizRepo {
         return quizes.get(quizID);
     }
 
-    public Integer submitQuiz(Long StudentId,Long quizId){
-        return quizes.get(quizId).gradeQuiz(StudentId);
+    public Integer submitQuiz(Long StudentId,Long quizId,List<String> ans){
+        return quizes.get(quizId).gradeQuiz(StudentId,ans);
+    }
+    public Quiz getQuizByid(Long id){
+        return quizes.get(id);
     }
 
 }

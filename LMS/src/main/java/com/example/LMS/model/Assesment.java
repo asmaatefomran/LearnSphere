@@ -2,7 +2,6 @@ package com.example.LMS.model;
 
 import com.example.LMS.model.StudentGradeFeedback;
 
-
 import lombok.AllArgsConstructor;
 
 import lombok.Getter;
@@ -19,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Assesment {
     Long id;
-    List<HashMap<Long, StudentGradeFeedback>> students; // student ID, grade, and feedback
+    HashMap<Long, StudentGradeFeedback> students; // student ID, grade, and feedback
     List<Question> questions;
     int grade;
     Long instructorId;
@@ -37,7 +36,6 @@ public class Assesment {
         return "Assesment [id=" + id + ", students=" + students + ", questions=" + questions + ", grade=" + grade
                 + ", instructorId=" + instructorId + ", CourseID=" + CourseID + "]";
     }
-
 
     public void addSubmission(Long studentId, String answer) {
         if (studentId == null || answer == null || answer.isEmpty()) {
