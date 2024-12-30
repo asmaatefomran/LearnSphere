@@ -3,6 +3,7 @@ package com.example.LMS.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.LMS.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,11 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.LMS.model.Course;
-import com.example.LMS.model.Lesson;
-import com.example.LMS.model.Notification;
-import com.example.LMS.model.Student;
-import com.example.LMS.model.User;
 import com.example.LMS.service.CourseService;
 import com.example.LMS.service.NotificationService;
 import com.example.LMS.service.QuizService;
@@ -122,11 +118,19 @@ StudentController {
     }
 
      @PostMapping("/uploadassign")
-     public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,
+     public ResponseEntity<String> uploadAssignment(@RequestParam long StudentId,@RequestParam long AssessID,@RequestParam  long courseID,
                                                     @RequestParam String ans ){
-         String reasult = quizService.uploadAssessment(AssessID,StudentId,ans);
+         String reasult = quizService.uploadAssessment(AssessID,StudentId,courseID,ans);
          return ResponseEntity.ok(reasult);
      }
+
+//     @PostMapping("/takequiz")
+//     public ResponseEntity<String> takeQuiz(@RequestParam long StudentId,@RequestParam long quizID,@RequestParam  long courseID,
+//                                                    @RequestParam Quiz q ){
+//         String reasult = quizService.uploadAssessment(quizID,StudentId,courseID,ans);
+//         return ResponseEntity.ok(reasult);
+//     }
+
 
     @GetMapping("/view course")
     public ResponseEntity<String> view_course(@RequestParam long CourseID){

@@ -1,6 +1,7 @@
 package com.example.LMS.service;
 
 import com.example.LMS.model.Assesment;
+import com.example.LMS.model.Course;
 import com.example.LMS.model.Question;
 import com.example.LMS.model.Quiz;
 import com.example.LMS.repository.CourseRepo;
@@ -32,13 +33,19 @@ public class QuizService {
         return qr.save(q);
     }
 
-    public String uploadAssessment(Long assessID, Long StudentID, String ans) {
-        Assesment assessment = qr.findAById(assessID);
-        if (assessment == null) {
-            throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
+    public String uploadAssessment(Long assessID, Long StudentID,long courseID, String ans) {
+        Assesment assessment ;
+        Optional<Course> c = courseRepo.findById(courseID);
+        if(c.isPresent()) {
+            Course c2 = c.get();
+            assessment = c2.getAssesment(assessID);
 
+            if (assessment == null) {
+                throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
+
+            }
+            assessment.addSubmission(StudentID, ans);
         }
-        assessment.addSubmission(StudentID, ans);
         return ("Submission uploaded for Student ID: " + StudentID);
 
     }

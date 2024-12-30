@@ -18,6 +18,7 @@ public class Quiz {
     List<Question> questions;
     HashMap<Long, Integer> students;// student id, grade
 
+
     public Quiz(List<Question> questions, long courseId) {
         this.questions = questions;
         this.courseId = courseId;
