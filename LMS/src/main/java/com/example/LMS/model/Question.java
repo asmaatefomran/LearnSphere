@@ -41,4 +41,10 @@ public class Question {
         return grade;
     }
 
+    @Override
+    public String toString() {
+        return "Question [question=" + question + ", answer=" + answer + ", modelAnswer=" + modelAnswer + ", grade="
+                + grade + ", mark=" + mark + "]";
+    }
+
 }
