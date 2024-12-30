@@ -52,7 +52,7 @@ StudentController {
     public ResponseEntity<User> loginStudent(@RequestParam String email, @RequestParam String password) {
         User loggedInUser = userService.login(email, password).orElse(null);
         if (loggedInUser != null) {
-         loggedInUser.getNotififcations().add(notificationService.AddNotification("You have loggined Successfully", loggedInUser.getId()));
+         loggedInUser.getNotifications().add(notificationService.AddNotification("You have loggined Successfully", loggedInUser.getId()));
             return ResponseEntity.ok(loggedInUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -63,7 +63,7 @@ StudentController {
     public ResponseEntity<String> enroll(@RequestParam Long StudId, @RequestParam long Couid) {
 
         String result = studentService.EnrollInCourse(StudId, Couid);
-        userService.getUserbyId(StudId).getNotififcations().add(notificationService.AddNotification("You have enrolled the Course with id  "+  Couid +"Successfully",StudId)) ;
+        userService.getUserbyId(StudId).getNotifications().add(notificationService.AddNotification("You have enrolled the Course with id  "+  Couid +"Successfully",StudId)) ;
         Optional<Course> optionalCourse = courseService.getCourseById(Couid);
         Course course = optionalCourse.get();
         long instructorId = Long.parseLong (course.getInstructorId());
@@ -79,7 +79,7 @@ StudentController {
         long courseId = Couid;
 
         String result = studentService.UnEnrollFromCourse(Long.valueOf(studentId),courseId);
-        userService.getUserbyId(StudId).getNotififcations().add(notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId));
+        userService.getUserbyId(StudId).getNotifications().add(notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId));
 
         return ResponseEntity.ok(result);
     }
@@ -98,7 +98,7 @@ StudentController {
     Optional<User> updatedUser = studentService.updateStudent(stu);
         if (updatedUser != null) {
             User u = updatedUser.get();
-            u.getNotififcations().add(notificationService.AddNotification("Your profile has been updated",stu.getId()));
+            u.getNotifications().add(notificationService.AddNotification("Your profile has been updated",stu.getId()));
             return ResponseEntity.ok(updatedUser);
         } else {
             return ResponseEntity.badRequest().build();
@@ -109,7 +109,7 @@ StudentController {
 ;
         Optional<Lesson> l = studentService.attendlesson(Studid,Lessonname,Couid);
         if(l.isPresent())
-        userService.getUserbyId(Studid).getNotififcations().add(notificationService.AddNotification("Your attendance has been recorded!",Studid));
+        userService.getUserbyId(Studid).getNotifications().add(notificationService.AddNotification("Your attendance has been recorded!",Studid));
         return ResponseEntity.ok().body(l);
     }
 
