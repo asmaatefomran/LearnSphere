@@ -84,8 +84,8 @@ public class UserService {
             if (user.getRole()!= null) {
                 existingUser.setRole(user.getRole());
             }
-            if(user.getNotififcations()!=null)
-               existingUser.setNotififcations(user.getNotififcations());
+            if(user.getNotifications()!=null)
+               existingUser.setNotifications(user.getNotifications());
 
             return true;
         }

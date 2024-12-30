@@ -16,7 +16,8 @@ public class User {
     private String email;
     private String password;
     private String role;
-    List<Notification> notififcations = new ArrayList<>();
+    private List<Notification> notifications = new ArrayList<>(); // Initialize the notifications list
+
 
     public User(String name, String email, String password,String role) {
         this.id = UserIdGenerotor.generateId();
@@ -46,7 +47,7 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", role=" + role
-                + ", notififcations=" + notififcations + "]";
+                + ", notififcations=" + notifications + "]";
     }
     
 }
