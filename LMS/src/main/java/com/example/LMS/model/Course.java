@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -57,5 +58,12 @@ public class Course {
 
     public void setAssesments(Assesment a) {
         this.assesments.add(a);
+    }
+
+    public List<Question> getRandomQuestions(){
+        List<Question> rQuestions=new ArrayList<>();
+        Random random = new Random();
+        rQuestions.add( questionBank.get(random.nextInt(questionBank.size())));
+        return rQuestions;
     }
 }

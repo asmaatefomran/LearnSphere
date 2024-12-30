@@ -23,31 +23,34 @@ public class QuizService {
     private CourseRepo courseRepo;
 
     public Quiz createQuiz(Quiz q) {
-
         return qr.save(q);
-
     }
-    public String uploadAssessment(Long assessID,Long StudentID,String ans){
+
+    public Quiz createQuiz(Long courseid) {
+
+        Quiz q = new Quiz(courseRepo.findById(courseid).get().getRandomQuestions(), courseid);
+        return qr.save(q);
+    }
+
+    public String uploadAssessment(Long assessID, Long StudentID, String ans) {
         Assesment assessment = qr.findAById(assessID);
-        if(assessment==null){
+        if (assessment == null) {
             throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
 
         }
-        assessment.addSubmission(StudentID,ans);
-        return ("Submission uploaded for Student ID: " +StudentID);
+        assessment.addSubmission(StudentID, ans);
+        return ("Submission uploaded for Student ID: " + StudentID);
 
     }
 
 
+    public String getQuizGrades(Long id) {
+        if (qr.findById(id).isPresent()) {
+            Quiz q = qr.findById(id).get();
+            return q.getStudents().toString();
+        }
 
-    // public String GradeQuiz(Long id){
-    // if( qr.findById(id).isPresent())
-    // {
-    // Quiz q = qr.findById(id).get();
+        return new String("there is no quiz with that id: " + id);
 
-    // }
-
-    // return new String("there is no quiz with that id: "+id);
-    // }
-
+    }
 }

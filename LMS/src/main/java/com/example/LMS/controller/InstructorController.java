@@ -172,42 +172,60 @@ public class InstructorController {
 
     }
 
-    
-    // @GetMapping("/getQuizGrades")
-    // public String getQuizgrades(@RequestParam Long quizId) {
-    // quizService.
+    @PostMapping("/createQuiz")
+    public ResponseEntity<String> createQuiz( @RequestParam Long courseId,
+            @RequestParam Long InstId) {
+        Optional<Course> course = courseService.getCourseById(courseId);
+        if (course.isPresent()) {
+            Long id = Long.parseLong(course.get().getInstructorId());
+            if (id.equals(InstId)) {
+                Quiz createdQuiz = quizService.createQuiz(courseId);
+                return ResponseEntity.status(HttpStatus.CREATED).body(createdQuiz.toString());
+            } else {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                        .body("you don't have the right to add assigment to that course");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("there is no course with that id");
+        }
 
-    // return new String();
-    // }
+    }
+    
+
     @GetMapping("/viewEnrollStud")
     public ResponseEntity<String> viewEnrolledStudents(@RequestParam String instructorId, @RequestParam Long couid) {
         try {
-            List<User> enrolled=instructorService.viewStudentInCourse(instructorId,couid);
+            List<User> enrolled = instructorService.viewStudentInCourse(instructorId, couid);
             return ResponseEntity.ok(enrolled.toString());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Invalid request: " + e.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("al dnia msh tmm");
         }
 
     }
+
     @GetMapping("/viewNotification")
-    public ResponseEntity<String> viewNotification(@RequestParam Long userId){
+    public ResponseEntity<String> viewNotification(@RequestParam Long userId) {
         try {
             User user = userService.getUserbyId(userId);
-        
+
             if (user == null) {
                 return ResponseEntity.badRequest().body("There is no user by this id ");
             }
             List<Notification> notifications = user.getNotifications();
             return ResponseEntity.ok(notifications.toString());
-        } 
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("al dnia msh tmm");
         }
 
+    }
+
+
+    @GetMapping("/getQuizGrades")
+    public String getQuizgrades(@RequestParam Long quizId) {
+        return quizService.getQuizGrades(quizId);
     }
 
 }

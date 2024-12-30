@@ -5,6 +5,7 @@ public class Question {
     String answer;
     String modelAnswer;
     Integer grade;
+    Integer mark;
 
     public Question(String question, String modelAnswer, Integer grade) {
         this.question = question;
@@ -14,6 +15,14 @@ public class Question {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public void setMark(Integer mark) {
+        this.mark = mark;
+    }
+
+    public Integer getMark() {
+        return mark;
     }
 
     public String getQuestion() {
@@ -31,5 +40,5 @@ public class Question {
     public Integer getGrade() {
         return grade;
     }
-    
+
 }
