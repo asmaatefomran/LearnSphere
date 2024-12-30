@@ -20,7 +20,7 @@ public class quizConfig {
             new Question("What is 2 + 2?", "4", 3),
             new Question("What is the color of the sky?", "Blue", 2)
         );
-            Quiz q1= new Quiz(questions,16);
+            Quiz q1= new Quiz(questions,3);
             repository.createQuiz(q1);
             // repository.createQuiz(null);
             // repository.createQuiz(null);

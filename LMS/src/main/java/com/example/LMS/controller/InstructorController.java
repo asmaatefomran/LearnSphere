@@ -172,8 +172,8 @@ public class InstructorController {
 
     }
 
-    @PostMapping("/createQuiz")
-    public ResponseEntity<String> createQuiz( @RequestParam Long courseId,
+    @PostMapping("/createQuizRandom")
+    public ResponseEntity<String> createQuizRandom( @RequestParam Long courseId,
             @RequestParam Long InstId) {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
@@ -228,4 +228,8 @@ public class InstructorController {
         return quizService.getQuizGrades(quizId);
     }
 
+    @GetMapping("/getQuizes")
+    public String getQuizes() {
+        return quizService.getquizes();
+    }
 }

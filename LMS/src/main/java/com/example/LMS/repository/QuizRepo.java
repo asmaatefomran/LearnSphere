@@ -3,10 +3,12 @@ package com.example.LMS.repository;
 import com.example.LMS.controller.QuizController;
 import com.example.LMS.model.*;
 
+import lombok.Getter;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
-
+@Getter
 @Repository
 public class QuizRepo {
 

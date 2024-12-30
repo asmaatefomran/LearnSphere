@@ -53,4 +53,7 @@ public class QuizService {
         return new String("there is no quiz with that id: " + id);
 
     }
+    public String getquizes(){
+        return qr.getQuizes().toString();
+    }
 }

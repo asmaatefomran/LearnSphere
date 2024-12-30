@@ -25,7 +25,6 @@ public class Course {
     List<Question> questionBank;
     public List<Lesson> Lessons;
 
-
     public Course(String title, String description, Long instructorId) {
 
         this.id = CourseIdGenerator.generateId();
@@ -35,7 +34,7 @@ public class Course {
         this.enrolledStudentIds = new ArrayList<>();
         this.Lessons = new ArrayList<>();
         this.questionBank = new ArrayList<>();
-        
+
     }
 
     public void addAssigment(Assesment ass) {
@@ -48,10 +47,12 @@ public class Course {
                 + instructorId + ", enrolledStudentIds=" + enrolledStudentIds + ", Assignments=" + Assignments
                 + ", questionBank=" + questionBank + ", Lessons=" + Lessons + "]";
     }
-    public Assesment getAssesment(Long id){
-        
+
+    public Assesment getAssesment(Long id) {
+
         return Assignments.stream().filter(assesment -> id.equals(assesment.getId())).findFirst().get();
     }
+
     public Course() {
         this.enrolledStudentIds = new ArrayList<>();
     }
@@ -60,10 +61,12 @@ public class Course {
         this.assesments.add(a);
     }
 
-    public List<Question> getRandomQuestions(){
-        List<Question> rQuestions=new ArrayList<>();
+    public List<Question> getRandomQuestions() {
+        List<Question> rQuestions = new ArrayList<>();
         Random random = new Random();
-        rQuestions.add( questionBank.get(random.nextInt(questionBank.size())));
+        if (!questionBank.isEmpty()) {
+            rQuestions.add(questionBank.get(random.nextInt(questionBank.size())));
+        }
         return rQuestions;
     }
 }
