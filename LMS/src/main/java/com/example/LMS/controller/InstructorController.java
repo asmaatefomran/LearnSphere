@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Course;
 import com.example.LMS.model.Instructor;
+import com.example.LMS.model.Notification;
 import com.example.LMS.model.Quiz;
 import com.example.LMS.model.StudentGradeFeedback;
 import com.example.LMS.model.User;
@@ -34,8 +35,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RestController
 @RequestMapping("/api/instructor")
 public class InstructorController {
-    // @Autowired
-    // private InstructorService InstructorService;
     @Autowired
     private UserService userService;
     @Autowired
@@ -189,6 +188,22 @@ public class InstructorController {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Invalid request: " + e.getMessage());
         }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body("al dnia msh tmm");
+        }
+
+    }
+    @GetMapping("/viewNotification")
+    public ResponseEntity<String> viewNotification(@RequestParam Long userId){
+        try {
+            User user = userService.getUserbyId(userId);
+        
+            if (user == null) {
+                return ResponseEntity.badRequest().body("There is no user by this id ");
+            }
+            List<Notification> notifications = user.getNotifications();
+            return ResponseEntity.ok(notifications.toString());
+        } 
         catch (Exception e) {
             return ResponseEntity.badRequest().body("al dnia msh tmm");
         }

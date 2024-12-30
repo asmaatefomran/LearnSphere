@@ -32,4 +32,11 @@ public class Notification {
     public Long getId() {
         return id;
     }
+
+
+    @Override
+    public String toString() {
+        return "Notification [id=" + id + ", message=" + message + ", recipientID=" + recipientID + "]";
+    }
+
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.LMS.model.Course;
 import com.example.LMS.model.Lesson;
 import com.example.LMS.model.Notification;
 import com.example.LMS.model.Student;
@@ -35,6 +36,7 @@ StudentController {
     private NotificationService notificationService;
     @Autowired
     private QuizService quizService;
+    @Autowired
     private CourseService courseService;
 
     @PostMapping("/register")
@@ -65,7 +67,11 @@ StudentController {
 
         // Call the enrollInCourse method from the StudentService
         String result = studentService.EnrollInCourse(StudId, Couid);
-        notificationService.AddNotification("You have enrolled the {Couid} Successfully",StudId);
+        Optional<Course> optionalCourse = courseService.getCourseById(Couid);
+        Course course = optionalCourse.get();
+        long instructorId = Long.parseLong (course.getInstructorId());  
+        notificationService.notifyInstructorForEnrollment(instructorId, "A student has enrolled in your course: " + course.getTitle() + " and his id is  " + StudId);
+        notificationService.AddNotification("You have enrolled the course that it's id: "+Couid+" and name is: "+ course.getTitle() +" Successfully",StudId);
 
         // Return the response
         return ResponseEntity.ok(result);
