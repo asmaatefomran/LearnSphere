@@ -3,6 +3,7 @@ package com.example.LMS.service;
 import com.example.LMS.model.Assesment;
 import com.example.LMS.model.Question;
 import com.example.LMS.model.Quiz;
+import com.example.LMS.model.Course;
 import com.example.LMS.repository.CourseRepo;
 import com.example.LMS.repository.QuizRepo;
 import lombok.Getter;
@@ -27,8 +28,10 @@ public class QuizService {
         return qr.save(q);
 
     }
+
     public String uploadAssessment(Long assessID,Long StudentID,String ans){
         Assesment assessment = qr.findAById(assessID);
+
         if(assessment==null){
             throw new IllegalArgumentException("Assessment with ID " + assessment.getId() + " not found.");
 

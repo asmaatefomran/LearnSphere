@@ -26,7 +26,7 @@ public class CourseRepo {
 
     public Optional<Course> findById(Long id) {
         System.out.println("hhh");
-        if(courses.containsKey(id))System.out.println("found");
+
         return Optional.ofNullable(courses.get(id));
     }
 

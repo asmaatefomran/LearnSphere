@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.LMS.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.LMS.model.Assesment;
-import com.example.LMS.model.Course;
-import com.example.LMS.model.Instructor;
-import com.example.LMS.model.Notification;
-import com.example.LMS.model.Quiz;
-import com.example.LMS.model.StudentGradeFeedback;
-import com.example.LMS.model.User;
 import com.example.LMS.service.CourseService;
 import com.example.LMS.service.InstructorService;
 import com.example.LMS.service.QuizService;
@@ -106,7 +100,7 @@ public class InstructorController {
 
     @PostMapping("/createAssignment")
     public ResponseEntity<String> createAssignment(@RequestParam Long courseId, @RequestParam Long InstId,
-            @RequestBody Assesment assesment) {
+            @RequestBody Assignment assesment) {
         Optional<Course> course = courseService.getCourseById(courseId);
         if (course.isPresent()) {
             Long id = Long.parseLong(course.get().getInstructorId());
@@ -114,6 +108,7 @@ public class InstructorController {
                 assesment.setCourseID(courseId);
                 assesment.setInstructorId(InstId);
                 assesment.setId();
+
                 courseService.addAssigment(courseId, assesment);
                 return ResponseEntity.status(HttpStatus.CREATED).body(assesment.toString());
             } else {

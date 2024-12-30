@@ -89,7 +89,7 @@ public class StudentServiceTest {
                 .andReturn();
         String responseBody = result.getResponse().getContentAsString();
         assertTrue(responseBody.contains("cp"));
-        assertEquals("{\"name\":\"cp\",\"questions\":[],\"attendees\":[{\"id\":24,\"name\":\"malak\",\"email\":\"malak.@gmail.com\",\"password\":\"123456\",\"role\":\"student\",\"notififcations\":null,\"major\":null,\"courses\":null,\"gpa\":0.0,\"graduationYear\":0}],\"instructorId\":null,\"courseId\":5}", responseBody);
+        assertEquals("{\"name\":\"cp\",\"questions\":[],\"attendees\":[{\"id\":24,\"name\":\"malak\",\"email\":\"malak.@gmail.com\",\"password\":\"123456\",\"role\":\"student\",\"notifications\":[],\"major\":null,\"courses\":[],\"graduationYear\":0,\"gpa\":0.0}],\"instructorId\":null,\"courseId\":5}", responseBody);
     }
 
 }

@@ -36,6 +36,7 @@ StudentController {
     private NotificationService notificationService;
     @Autowired
     private QuizService quizService;
+    @Autowired
     private CourseService courseService;
 
     @PostMapping("/register")
@@ -66,11 +67,8 @@ StudentController {
         String result = studentService.EnrollInCourse(StudId, Couid);
         Optional<Course> optionalCourse = courseService.getCourseById(Couid);
         Course course = optionalCourse.get();
-        System.out.println(course.getInstructorId());
-        System.out.println("here");
-        System.out.println("not");
-      //  long instructorId = Long.parseLong (course.getInstructorId());
-      //  notificationService.notifyInstructorForEnrollment(instructorId, "A student has enrolled in your course: " + course.getTitle() + " and his id is  " + StudId);
+        long instructorId = Long.parseLong (course.getInstructorId());
+        notificationService.notifyInstructorForEnrollment(instructorId, "A student has enrolled in your course: " + course.getTitle() + " and his id is  " + StudId);
         notificationService.AddNotification("You have enrolled the course that it's id: "+Couid+" and name is: "+ course.getTitle() +" Successfully",StudId);
 
         return ResponseEntity.ok(result);
@@ -80,9 +78,8 @@ StudentController {
     public ResponseEntity<String> Unenroll(@RequestParam Long StudId, @RequestParam Long Couid) {
         String studentId = StudId.toString();
         long courseId = Couid;
-
         String result = studentService.UnEnrollFromCourse(Long.valueOf(studentId),courseId);
-        userService.getUserbyId(StudId).getNotifications().add(notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId));
+        notificationService.AddNotification("You have Unenrolled the {Couid} Successfully",StudId);
 
         return ResponseEntity.ok(result);
     }

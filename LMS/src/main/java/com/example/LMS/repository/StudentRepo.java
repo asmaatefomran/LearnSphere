@@ -38,10 +38,10 @@ public class StudentRepo {
         Course course = courseOptional.get();
 
         List<String> enrolledStudentIds = course.getEnrolledStudentIds();
-
         if (!enrolledStudentIds.contains(studentId)) {
             Student st = (Student) userRepo.getUserById(Long.parseLong(studentId));
             st.getCourses().add(course);
+
             enrolledStudentIds.add(studentId);
             courseRepo.updateCourse(course);
             System.out.println(st.getName());
@@ -80,7 +80,6 @@ public class StudentRepo {
         Optional<User> userToUpdate = userRepo.findUserViaEmail(u.getEmail());
 
         if (userToUpdate.isPresent()) {
-            System.out.println("here");
             Student existingUser = (Student) userToUpdate.get();
 
             // Update GPA if it's within the valid range
