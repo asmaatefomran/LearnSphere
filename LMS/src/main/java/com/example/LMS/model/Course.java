@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,6 @@ public class Course {
     List<Question> questionBank;
     public List<Lesson> Lessons;
 
-
     public Course(String title, String description, Long instructorId) {
 
         this.id = CourseIdGenerator.generateId();
@@ -34,7 +34,7 @@ public class Course {
         this.enrolledStudentIds = new ArrayList<>();
         this.Lessons = new ArrayList<>();
         this.questionBank = new ArrayList<>();
-        
+
     }
 
     public void addAssigment(Assesment ass) {
@@ -47,15 +47,26 @@ public class Course {
                 + instructorId + ", enrolledStudentIds=" + enrolledStudentIds + ", Assignments=" + Assignments
                 + ", questionBank=" + questionBank + ", Lessons=" + Lessons + "]";
     }
-    public Assesment getAssesment(Long id){
-        
+
+    public Assesment getAssesment(Long id) {
+
         return Assignments.stream().filter(assesment -> id.equals(assesment.getId())).findFirst().get();
     }
+
     public Course() {
         this.enrolledStudentIds = new ArrayList<>();
     }
 
     public void setAssesments(Assesment a) {
         this.assesments.add(a);
+    }
+
+    public List<Question> getRandomQuestions() {
+        List<Question> rQuestions = new ArrayList<>();
+        Random random = new Random();
+        if (!questionBank.isEmpty()) {
+            rQuestions.add(questionBank.get(random.nextInt(questionBank.size())));
+        }
+        return rQuestions;
     }
 }
