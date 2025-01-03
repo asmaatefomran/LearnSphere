@@ -90,7 +90,7 @@
 - **Spring Boot**: Framework for RESTful API development.
 - **Spring Security**: Authentication and authorization for role-based access control.
 - **JPA/Hibernate**: For database ORM (Object-Relational Mapping).
-- **MySQL/PostgreSQL/SQLite**: Relational database management.
+- **MySQL**: Relational database management.
 - **JUnit**: Unit testing for the back-end.
 
 ### Front-End (planned)
