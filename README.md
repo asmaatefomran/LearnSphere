@@ -96,7 +96,7 @@
 ### Front-End (planned)
 - **React.js**: Front-end library/framework for building dynamic user interfaces.
 - **Tailwind CSS**: Utility-first CSS framework for responsive and modern designs.
-- **Axios/Fetch API**: For consuming RESTful APIs.
+- **Fetch API**: For consuming RESTful APIs.
 
 ### Integration & Version Control
 - **Git**: For version control and collaboration.
