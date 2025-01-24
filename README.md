@@ -1,4 +1,4 @@
-# LearnSphere - Full Stack Learning Management System
+# LearnSphere - Back-End Learning Management System
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -11,7 +11,7 @@
 
 ## Project Overview
 
-**LearnSphere** is a web-based platform designed for managing and organizing online courses and assessments for students and instructors. It is a full-stack application with a Spring Boot back-end and a dynamic front-end for a seamless user experience. The project focuses on course creation, user management, assessments, performance tracking, and intuitive user interfaces.
+**LearnSphere** is a web-based platform designed for managing and organizing online courses and assessments for students and instructors. It is a back-end application with a Spring Boot . The project focuses on course creation, user management, assessments, performance tracking.
 
 ---
 
@@ -93,11 +93,6 @@
 - **MySQL**: Relational database management.
 - **JUnit**: Unit testing for the back-end.
 
-### Front-End (planned)
-- **React.js**: Front-end library/framework for building dynamic user interfaces.
-- **Tailwind CSS**: Utility-first CSS framework for responsive and modern designs.
-- **Fetch API**: For consuming RESTful APIs.
-
 ### Integration & Version Control
 - **Git**: For version control and collaboration.
 - **Postman**: For API testing and debugging.
@@ -110,10 +105,6 @@
 - **Language**: Java
 - **Framework**: Spring Boot
 - **Database**: MySQL
-
-### Front-End
-- **Framework/Library**: React.js
-- **Styling**: Tailwind CSS, Bootstrap
 
 ### Integration, Testing, & Deployment
 - **Unit Testing**: JUnit (back-end), Jest (front-end)
